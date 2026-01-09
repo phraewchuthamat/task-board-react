@@ -26,6 +26,10 @@ export default function TaskProvider({ children }) {
 
     const clearTask = () => dispatch({ type: TASK_ACTIONS.CLEAR_TODO })
 
+    const moveTask = (id, status) => {
+        dispatch({ type: TASK_ACTIONS.MOVE_TASK, payload: { id, status } })
+    }
+
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(taskItems))
     }, [taskItems])
@@ -38,6 +42,7 @@ export default function TaskProvider({ children }) {
                 updateTask,
                 removeFromTask,
                 clearTask,
+                moveTask,
             }}
         >
             {children}

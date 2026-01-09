@@ -1,7 +1,45 @@
-import React from 'react'
+import { useDraggable } from '@dnd-kit/core'
+import { CSS } from '@dnd-kit/utilities'
 
-function TaskCard() {
-    return <div>TaskCard</div>
+function TaskCard({ task }) {
+    // 2. เรียกใช้ hook โดยส่ง ID ของ task เป็น unique id
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+        id: task.id,
+    })
+
+    // 3. กำหนดสไตล์ตอนลาก (ให้มันขยับตามเมาส์)
+    const style = {
+        transform: CSS.Translate.toString(transform),
+    }
+
+    return (
+        // 4. ผูก ref, style, และ listeners เข้ากับ div หลัก
+        <div
+            ref={setNodeRef}
+            style={style}
+            {...listeners}
+            {...attributes}
+            className="bg-gray-700 p-3 rounded-md shadow-md hover:bg-gray-600 cursor-grab active:cursor-grabbing touch-none"
+        >
+            <h3 className="font-semibold text-white">{task.title}</h3>
+            <p className="text-gray-400 text-sm mt-1 truncate">
+                {task.description}
+            </p>
+            <div className="mt-2 flex justify-between items-center">
+                <span
+                    className={`text-xs px-2 py-1 rounded ${
+                        task.priority === 'high'
+                            ? 'bg-red-500/20 text-red-300'
+                            : task.priority === 'medium'
+                            ? 'bg-yellow-500/20 text-yellow-300'
+                            : 'bg-green-500/20 text-green-300'
+                    }`}
+                >
+                    {task.priority}
+                </span>
+            </div>
+        </div>
+    )
 }
 
 export default TaskCard
