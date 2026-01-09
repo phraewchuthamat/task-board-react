@@ -1,9 +1,7 @@
 import TaskCard from './TaskCard'
-// 1. เปลี่ยนจาก useDraggable เป็น useDroppable
 import { useDroppable } from '@dnd-kit/core'
 
 function Column({ title, tasks, status, onEdit }) {
-    // 2. เรียกใช้ useDroppable
     const { setNodeRef } = useDroppable({
         id: status,
     })
