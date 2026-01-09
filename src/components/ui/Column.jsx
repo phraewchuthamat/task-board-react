@@ -1,8 +1,10 @@
 import TaskCard from './TaskCard'
-import { useDraggable } from '@dnd-kit/core'
+// 1. เปลี่ยนจาก useDraggable เป็น useDroppable
+import { useDroppable } from '@dnd-kit/core'
 
 function Column({ title, tasks, status }) {
-    const { setNodeRef } = useDraggable({
+    // 2. เรียกใช้ useDroppable
+    const { setNodeRef } = useDroppable({
         id: status,
     })
 
@@ -11,7 +13,7 @@ function Column({ title, tasks, status }) {
             ref={setNodeRef}
             className="bg-gray-800 p-4 rounded-lg w-80 min-h-125 flex flex-col gap-4"
         >
-            <h2 className="text-xl font-bold mb-2 flex justify-between items-center">
+            <h2 className="text-xl font-bold mb-2 flex justify-between items-center text-white">
                 {title}
                 <span className="bg-gray-700 text-sm px-2 py-1 rounded-full">
                     {tasks.length}

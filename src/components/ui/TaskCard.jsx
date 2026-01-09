@@ -1,19 +1,21 @@
+import React from 'react'
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 
 function TaskCard({ task }) {
-    // 2. เรียกใช้ hook โดยส่ง ID ของ task เป็น unique id
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id: task.id,
-    })
+    // ดึง isDragging มาเช็คด้วย
+    const { attributes, listeners, setNodeRef, transform, isDragging } =
+        useDraggable({
+            id: task.id,
+        })
 
-    // 3. กำหนดสไตล์ตอนลาก (ให้มันขยับตามเมาส์)
     const style = {
         transform: CSS.Translate.toString(transform),
+        // ถ้ากำลังลาก (isDragging = true) ให้ตัวเดิมจางลง
+        opacity: isDragging ? 0.5 : 1,
     }
 
     return (
-        // 4. ผูก ref, style, และ listeners เข้ากับ div หลัก
         <div
             ref={setNodeRef}
             style={style}
@@ -25,6 +27,7 @@ function TaskCard({ task }) {
             <p className="text-gray-400 text-sm mt-1 truncate">
                 {task.description}
             </p>
+
             <div className="mt-2 flex justify-between items-center">
                 <span
                     className={`text-xs px-2 py-1 rounded ${
