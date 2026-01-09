@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form'
 import { useTask } from '../hooks/useTask'
 import useAlert from '../hooks/useAlert'
 
-function TaskModal({ isOpen, onClose }) {
-    const { createTask } = useTask()
+function TaskModal({ isOpen, onClose, taskToEdit }) {
+    const { createTask, updateTask } = useTask()
     const { setAlert } = useAlert()
 
     const {
@@ -15,19 +15,31 @@ function TaskModal({ isOpen, onClose }) {
     } = useForm()
 
     useEffect(() => {
-        if (!isOpen) {
-            reset()
+        if (isOpen) {
+            if (taskToEdit) {
+                reset({
+                    title: taskToEdit.title,
+                    description: taskToEdit.description,
+                    priority: taskToEdit.priority,
+                })
+            } else {
+                reset({
+                    title: '',
+                    description: '',
+                    priority: '',
+                })
+            }
         }
-    }, [isOpen, reset])
+    }, [isOpen, taskToEdit, reset])
 
     const onSubmit = (data) => {
-        const taskData = {
-            title: data.title,
-            description: data.description,
-            priority: data.priority,
+        if (taskToEdit) {
+            updateTask(taskToEdit.id, data)
+            setAlert('แก้ไขงานสำเร็จ!', 'success')
+        } else {
+            createTask(data)
+            setAlert('สร้างงานใหม่สำเร็จ!', 'success')
         }
-
-        createTask(taskData)
         onClose()
     }
 
@@ -36,7 +48,9 @@ function TaskModal({ isOpen, onClose }) {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-gray-800 p-6 rounded-lg w-96">
-                <h2 className="text-xl text-white mb-4">Add New Task</h2>
+                <h2 className="text-xl text-white mb-4">
+                    {taskToEdit ? 'Edit Task' : 'New Task'}
+                </h2>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {/* --- Title Input --- */}
@@ -109,7 +123,7 @@ function TaskModal({ isOpen, onClose }) {
                             }
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
                         >
-                            Create
+                            {taskToEdit ? 'Save Changes' : 'Create'}
                         </button>
                     </div>
                 </form>

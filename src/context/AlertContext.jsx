@@ -1,6 +1,6 @@
 import { createContext, useState, useRef } from 'react' // 1. เพิ่ม useRef
 
-const ALERT_TIME = 5000
+const ALERT_TIME = 3000
 const initialState = {
     text: '',
     type: '',

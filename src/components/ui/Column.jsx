@@ -2,7 +2,7 @@ import TaskCard from './TaskCard'
 // 1. เปลี่ยนจาก useDraggable เป็น useDroppable
 import { useDroppable } from '@dnd-kit/core'
 
-function Column({ title, tasks, status }) {
+function Column({ title, tasks, status, onEdit }) {
     // 2. เรียกใช้ useDroppable
     const { setNodeRef } = useDroppable({
         id: status,
@@ -22,7 +22,7 @@ function Column({ title, tasks, status }) {
 
             <div className="flex flex-col gap-3">
                 {tasks.map((task) => (
-                    <TaskCard key={task.id} task={task} />
+                    <TaskCard key={task.id} task={task} onEdit={onEdit} />
                 ))}
             </div>
         </div>
