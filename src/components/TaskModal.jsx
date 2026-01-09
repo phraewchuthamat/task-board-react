@@ -1,25 +1,25 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useTask } from '../../hooks/useTask'
+import { useTask } from '../hooks/useTask'
+import useAlert from '../hooks/useAlert'
 
 function TaskModal({ isOpen, onClose }) {
     const { createTask } = useTask()
-    // 1. ใช้ useForm จัดการทุกอย่าง (ไม่ต้องมี useState สำหรับ field แล้ว)
+    const { setAlert } = useAlert()
+
     const {
         register,
         handleSubmit,
         reset,
-        formState: { errors }, // ดึง errors มาโชว์
+        formState: { errors },
     } = useForm()
 
-    // ล้างค่าในฟอร์มทุกครั้งที่ Modal ถูกเปิดขึ้นมาใหม่ หรือปิดไป
     useEffect(() => {
         if (!isOpen) {
             reset()
         }
     }, [isOpen, reset])
 
-    // 2. data จะถูกส่งมาจาก handleSubmit อัตโนมัติ
     const onSubmit = (data) => {
         const taskData = {
             title: data.title,
@@ -45,7 +45,7 @@ function TaskModal({ isOpen, onClose }) {
                         <input
                             {...register('title', {
                                 required: 'กรุณากรอกหัวข้อ',
-                            })} // ✅ ใช้ register แทน value/onChange
+                            })}
                             type="text"
                             placeholder="Title Task..."
                             className="w-full border-2 border-gray-600 bg-gray-700 text-white p-2 rounded outline-none focus:border-blue-500"
@@ -85,7 +85,7 @@ function TaskModal({ isOpen, onClose }) {
                         <select
                             {...register('priority', { required: true })}
                             className="w-full border-2 border-gray-600 bg-gray-700 text-white p-2 rounded outline-none focus:border-blue-500"
-                            defaultValue="medium" // ค่าเริ่มต้น
+                            defaultValue="medium"
                         >
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
@@ -104,6 +104,9 @@ function TaskModal({ isOpen, onClose }) {
                         </button>
                         <button
                             type="submit"
+                            onClick={() =>
+                                setAlert('บันทึกข้อมูลสำเร็จ!', 'success')
+                            }
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
                         >
                             Create

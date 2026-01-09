@@ -1,18 +1,27 @@
-import React from 'react'
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
+import { useTask } from '../../hooks/useTask'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import useAlert from '../../hooks/useAlert'
 
 function TaskCard({ task }) {
-    // ดึง isDragging มาเช็คด้วย
-    const { attributes, listeners, setNodeRef, transform, isDragging } =
-        useDraggable({
-            id: task.id,
-        })
+    const { removeFromTask } = useTask()
+    const { setAlert } = useAlert()
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+        id: task.id,
+    })
 
     const style = {
         transform: CSS.Translate.toString(transform),
-        // ถ้ากำลังลาก (isDragging = true) ให้ตัวเดิมจางลง
-        opacity: isDragging ? 0.5 : 1,
+    }
+
+    const handleDelete = (e) => {
+        e.stopPropagation()
+
+        if (window.confirm(`ต้องการลบงาน "${task.title}" ใช่ไหม?`)) {
+            removeFromTask(task.id)
+            setAlert('ลบข้อมูลสำเร็จ!', 'error')
+        }
     }
 
     return (
@@ -21,13 +30,20 @@ function TaskCard({ task }) {
             style={style}
             {...listeners}
             {...attributes}
-            className="bg-gray-700 p-3 rounded-md shadow-md hover:bg-gray-600 cursor-grab active:cursor-grabbing touch-none"
+            className="relative group bg-gray-700 p-3 rounded-md shadow-md hover:bg-gray-600 cursor-grab active:cursor-grabbing touch-none"
         >
-            <h3 className="font-semibold text-white">{task.title}</h3>
+            <button
+                onClick={handleDelete}
+                onPointerDown={(e) => e.stopPropagation()}
+                className="absolute top-2 right-2 text-gray-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+            >
+                <XMarkIcon className="w-5 h-5" />
+            </button>
+
+            <h3 className="font-semibold text-white pr-6">{task.title}</h3>
             <p className="text-gray-400 text-sm mt-1 truncate">
                 {task.description}
             </p>
-
             <div className="mt-2 flex justify-between items-center">
                 <span
                     className={`text-xs px-2 py-1 rounded ${

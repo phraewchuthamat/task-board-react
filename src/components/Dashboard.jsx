@@ -3,7 +3,7 @@ import { useTask } from '../hooks/useTask'
 import Column from './ui/Column'
 import { DndContext, closestCorners } from '@dnd-kit/core'
 import { PlusIcon } from '@heroicons/react/24/outline'
-import TaskModal from './ui/TaskModal'
+import TaskModal from './TaskModal'
 
 export default function Dashboard() {
     const { taskItems, moveTask } = useTask()
@@ -31,7 +31,6 @@ export default function Dashboard() {
             collisionDetection={closestCorners}
             onDragEnd={handleDragEnd}
         >
-            {/* ปุ่มกดเปิด Modal */}
             <div className="p-4 border-b border-gray-700 flex justify-between items-center">
                 <h1 className="text-2xl font-bold">Kanban Board</h1>
                 <button
