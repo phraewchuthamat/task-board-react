@@ -6,7 +6,7 @@ export const taskDefault = [
             'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim quia minus quasi repellat ut? Dolores explicabo recusandae minus delectus a.',
         priority: 'low' | 'medium' | 'high',
         createdAt: new Date(Date.now),
-        status: 'todo',
+        status: 'todo' | 'doing' | 'done',
     },
     {
         id: 2,
@@ -24,6 +24,6 @@ export const taskDefault = [
             'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim quia minus quasi repellat ut? Dolores explicabo recusandae minus delectus a.',
         priority: 'low' | 'medium' | 'high',
         createdAt: new Date(Date.now),
-        status: 'todo',
+        status: 'doing',
     },
 ]

@@ -25,7 +25,7 @@ export function taskReducer(state, action) {
         }
 
         case TASK_ACTIONS.DELETE_TODO: {
-            return state.filter((task) => task.os !== action.payload)
+            return state.filter((task) => task.id !== action.payload)
         }
 
         case TASK_ACTIONS.CLEAR_TODO: {

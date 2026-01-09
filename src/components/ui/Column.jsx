@@ -1,7 +1,5 @@
-import React from 'react'
-
-function Column() {
-    return <div>Column</div>
+function Column({ tasks }) {
+    return <div>{tasks}</div>
 }
 
 export default Column
