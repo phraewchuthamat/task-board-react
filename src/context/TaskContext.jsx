@@ -1,12 +1,16 @@
-import { createContext, useEffect, useReducer, useState } from 'react'
+import { createContext, useEffect, useReducer } from 'react'
 import { taskReducer, TASK_ACTIONS } from '../reducer/taskReducer'
+import { taskDefault } from '../utils/storage'
 
 const TaskContext = createContext()
 
+const getInitialState = () => {
+    const saved = localStorage.setItem('todos')
+    return saved ? JSON.parse(saved) : taskDefault
+}
+
 export default function TaskProvider({ children }) {
-    const [taskItems, dispatch] = useReducer(taskReducer, [])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
+    const [taskItems, dispatch] = useReducer(taskReducer, [], getInitialState)
 
     const createTask = (task) => {
         dispatch({ type: TASK_ACTIONS.CREATE_TODO, payload: task })
