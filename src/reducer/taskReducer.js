@@ -12,7 +12,7 @@ export function taskReducer(state, action) {
         case TASK_ACTIONS.CREATE_TODO: {
             const newId =
                 state.length > 0
-                    ? Math.max(...state.map((item) => item.id)) + 1
+                    ? Math.max(...state.map((task) => task.id)) + 1
                     : 1
             return [...state, { id: newId, ...action.payload }]
         }

@@ -5,7 +5,7 @@ import { taskDefault } from '../utils/storage'
 const TaskContext = createContext()
 
 const getInitialState = () => {
-    const saved = localStorage.setItem('todos')
+    const saved = localStorage.getItem('todos')
     return saved ? JSON.parse(saved) : taskDefault
 }
 
