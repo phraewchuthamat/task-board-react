@@ -94,7 +94,6 @@ function TaskModal({ isOpen, onClose, taskToEdit }) {
                                     onSubmit={handleSubmit(onSubmit)}
                                     className="space-y-2"
                                 >
-                                    {/* 1. เรียกใช้ Input Component */}
                                     <Input
                                         label="Title"
                                         name="title"
@@ -106,7 +105,6 @@ function TaskModal({ isOpen, onClose, taskToEdit }) {
                                         }}
                                     />
 
-                                    {/* 2. เรียกใช้ Textarea Component */}
                                     <Textarea
                                         label="Description"
                                         name="description"
@@ -118,18 +116,17 @@ function TaskModal({ isOpen, onClose, taskToEdit }) {
                                         }}
                                     />
 
-                                    {/* 3. เรียกใช้ Select Component */}
                                     <Select
                                         label="Priority"
                                         name="priority"
                                         register={register}
                                         options={[
-                                            { value: 'low', label: '🟢 Low' },
+                                            { value: 'low', label: 'Low' },
                                             {
                                                 value: 'medium',
-                                                label: '🟡 Medium',
+                                                label: 'Medium',
                                             },
-                                            { value: 'high', label: '🔴 High' },
+                                            { value: 'high', label: 'High' },
                                         ]}
                                     />
 

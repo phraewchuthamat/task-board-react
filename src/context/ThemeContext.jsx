@@ -4,19 +4,21 @@ const ThemeContext = createContext()
 
 export default function ThemeProvider({ children }) {
     const [theme, setTheme] = useState(() => {
-        const savedMode = localStorage.getItem('theme')
-        return savedMode || 'light'
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('theme') || 'light'
+        }
+        return 'light'
     })
 
     const toggleTheme = () => {
-        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+        setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
     }
 
     useEffect(() => {
-        localStorage.setItem('theme', theme)
         const root = document.documentElement
         root.classList.remove('light', 'dark')
         root.classList.add(theme)
+        localStorage.setItem('theme', theme)
     }, [theme])
 
     return (

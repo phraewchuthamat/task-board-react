@@ -1,8 +1,14 @@
+import { memo } from 'react'
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { useTask } from '../../hooks/useTask'
-import { XMarkIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
+import {
+    XMarkIcon,
+    PencilSquareIcon,
+    CalendarIcon,
+} from '@heroicons/react/24/outline'
 import useAlert from '../../hooks/useAlert'
+import { formatDate } from '../../utils/utils'
 
 function TaskCard({ task, onEdit }) {
     const { removeFromTask } = useTask()
@@ -17,7 +23,6 @@ function TaskCard({ task, onEdit }) {
 
     const handleDelete = (e) => {
         e.stopPropagation()
-
         if (window.confirm(`ต้องการลบงาน "${task.title}" ใช่ไหม?`)) {
             removeFromTask(task.id)
             setAlert('ลบข้อมูลสำเร็จ!', 'error')
@@ -30,7 +35,11 @@ function TaskCard({ task, onEdit }) {
             style={style}
             {...listeners}
             {...attributes}
-            className="relative group bg-gray-700 p-3 rounded-md shadow-md hover:bg-gray-600 cursor-grab active:cursor-grabbing touch-none"
+            className="relative group 
+                bg-theme-light-card dark:bg-theme-dark-card 
+                p-4 rounded-lg shadow-sm hover:shadow-md 
+                cursor-grab active:cursor-grabbing touch-none
+                border border-transparent hover:border-theme-light-accent/50"
         >
             <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
@@ -43,6 +52,7 @@ function TaskCard({ task, onEdit }) {
                 >
                     <PencilSquareIcon className="w-5 h-5" />
                 </button>
+
                 <button
                     onClick={handleDelete}
                     onPointerDown={(e) => e.stopPropagation()}
@@ -52,25 +62,40 @@ function TaskCard({ task, onEdit }) {
                 </button>
             </div>
 
-            <h3 className="font-semibold text-white pr-16">{task.title}</h3>
-            <p className="text-gray-400 text-sm mt-1 truncate">
+            {/* Title & Description */}
+            <h3 className="font-bold text-lg mb-1 text-theme-light-text dark:text-gray-900 pr-14">
+                {task.title}
+            </h3>
+
+            <p className="text-gray-600 dark:text-gray-800 text-sm mb-3 line-clamp-2">
                 {task.description}
             </p>
-            <div className="mt-2 flex justify-between items-center">
+
+            {/* Footer: Priority & Date */}
+            <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-200 dark:border-gray-600/20">
+                {/* Priority Badge */}
                 <span
-                    className={`text-xs px-2 py-1 rounded ${
+                    className={`text-xs px-2 py-1 rounded-md font-medium uppercase tracking-wider
+                    ${
                         task.priority === 'high'
-                            ? 'bg-red-500/20 text-red-300'
+                            ? 'bg-red-100 text-red-700'
                             : task.priority === 'medium'
-                            ? 'bg-yellow-500/20 text-yellow-300'
-                            : 'bg-green-500/20 text-green-300'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-green-100 text-green-800'
                     }`}
                 >
                     {task.priority}
                 </span>
+
+                {task.createdAt && (
+                    <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-600 font-medium">
+                        <CalendarIcon className="w-4 h-4" />
+                        <span>{formatDate(task.createdAt)}</span>
+                    </div>
+                )}
             </div>
         </div>
     )
 }
 
-export default TaskCard
+export default memo(TaskCard)

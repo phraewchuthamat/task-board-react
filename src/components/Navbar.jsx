@@ -5,11 +5,24 @@ export default function Navbar() {
     return (
         <Disclosure
             as="nav"
-            className="relative bg-white dark:bg-gray-900 transition-colors duration-300 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-gray-200 dark:after:bg-white/10"
+            className="
+                relative 
+                bg-theme-light-surface dark:bg-theme-dark-surface 
+                transition-colors duration-500 
+                
+                after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px 
+                after:bg-theme-light-accent dark:after:bg-white/10
+                shadow-sm
+            "
         >
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
-                    <div className="flex space-x-4 text-gray-900 dark:text-gray-300 text-2xl font-bold transition-colors duration-300">
+                    <div
+                        className="
+                        flex space-x-4 text-2xl font-bold transition-colors duration-300
+                        text-theme-light-text dark:text-theme-dark-text
+                    "
+                    >
                         Kanban Board
                     </div>
 

@@ -1,1 +1,10 @@
 @import 'tailwindcss';
+
+@layer utilities {
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background: transparent;
+    }
+}
