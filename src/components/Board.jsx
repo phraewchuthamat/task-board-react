@@ -79,7 +79,7 @@ export default function Board() {
             onDragCancel={handleDragCancel}
         >
             <div className="pt-8 px-8 pb-4">
-                <h1 className="text-3xl font-bold text-theme-light-text dark:text-theme-dark-text flex items-baseline gap-3">
+                <h1 className="text-3xl font-bold text-theme-light-text bg-theme-light-bg dark:bg-theme-dark-bg flex items-baseline gap-3">
                     Todo Today
                     <span className="text-lg font-medium text-gray-500 dark:text-gray-400">
                         {today}
@@ -114,7 +114,7 @@ export default function Board() {
                     setIsModalOpen(true)
                 }}
                 className="
-                    fixed top-20 right-10 z-50 
+                    fixed top-30 right-10 z-50 
                     flex items-center gap-2 px-6 py-3 
                     bg-linear-to-r from-blue-500 to-indigo-600 
                     hover:from-blue-600 hover:to-indigo-700

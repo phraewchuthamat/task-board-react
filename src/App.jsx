@@ -4,10 +4,10 @@ import AlertPopup from './components/ui/AlertPopup'
 
 function App() {
     return (
-        <div>
+        <div className="min-h-screen bg-theme-light-bg dark:bg-theme-dark-bg transition-colors duration-300">
             <Navbar />
             <AlertPopup />
-            <main>
+            <main className="container mx-auto px-4 py-6">
                 <Board />
             </main>
         </div>

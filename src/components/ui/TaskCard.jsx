@@ -43,7 +43,7 @@ function TaskCard({ task, onEdit, isOverlay = false }) {
             style={style}
             {...attributes}
             {...listeners}
-            className="relative rounded-xl p-4 cursor-grab active:cursor-grabbing bg-white dark:bg-slate-800 shadow-sm"
+            className="relative rounded-xl p-4 cursor-grab active:cursor-grabbing bg-theme-light-card dark:bg-theme-dark-card text-gray-800 dark:text-theme-dark-card shadow-sm"
         >
             <div
                 className={clsx(
