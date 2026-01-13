@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import TaskCard from './TaskCard'
 import clsx from 'clsx'
+import TaskCard from '../ui/TaskCard/TaskCard'
 
 function Column({ title, tasks, status, onEdit }) {
     const { setNodeRef, isOver } = useDroppable({

@@ -1,0 +1,54 @@
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTask } from '../../hooks/useTask'
+import useAlert from '../../hooks/useAlert'
+
+export default function useTaskForm({ taskToEdit, isOpen, onClose }) {
+    const { createTask, updateTask } = useTask()
+    const { setAlert } = useAlert()
+
+    const form = useForm({
+        defaultValues: {
+            title: '',
+            description: '',
+            priority: 'medium',
+        },
+    })
+
+    const { reset } = form
+
+    useEffect(() => {
+        if (!isOpen) return
+
+        if (taskToEdit) {
+            reset({
+                title: taskToEdit.title,
+                description: taskToEdit.description,
+                priority: taskToEdit.priority,
+            })
+        } else {
+            reset({
+                title: '',
+                description: '',
+                priority: 'medium',
+            })
+        }
+    }, [isOpen, taskToEdit, reset])
+
+    const onSubmit = (data) => {
+        if (taskToEdit) {
+            updateTask(taskToEdit.id, data)
+            setAlert('แก้ไขงานสำเร็จ!', 'success')
+        } else {
+            createTask(data)
+            setAlert('สร้างงานใหม่สำเร็จ!', 'success')
+        }
+        onClose()
+    }
+
+    return {
+        ...form,
+        onSubmit,
+        isEditMode: !!taskToEdit,
+    }
+}

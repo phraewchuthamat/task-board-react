@@ -30,7 +30,6 @@ export default function TaskProvider({ children }) {
     }
 
     const moveTask = (id, status) => {
-        // Reuse Logic ของ UPDATE_TASK
         dispatch({ type: TASK_ACTIONS.UPDATE_TASK, payload: { id, status } })
     }
 
