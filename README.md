@@ -1,16 +1,75 @@
-# React + Vite
+# Task Board (Kanban)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+เว็บจัดการงานสไตล์ Kanban (คล้าย Trello)  
+พัฒนาด้วย React เพื่อแสดงทักษะการออกแบบ Frontend, การจัดการ State และ UX
 
-Currently, two official plugins are available:
+Repository:  
+https://github.com/phraewchuthamat/task-board-react.git
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
+- จัดการงาน 3 สถานะ: **To Do / Doing / Done**
+- Drag & Drop ย้าย Task ระหว่าง Column
+- เพิ่ม / แก้ไข / ลบงาน (CRUD)
+- Popup Alert แจ้งผลการทำงาน
+- รองรับ Dark / Light Theme
+- มี **ข้อมูลเริ่มต้น (Initial Data)** สำหรับทดลองใช้งาน สามารถลบออกได้ทั้งหมด
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## วิธีการใช้งาน (How to Use)
+1. กดปุ่ม **New Task** เพื่อสร้างงานใหม่
+2. กรอก Title, Description และ Priority
+3. ใช้ **Drag & Drop** ลากการ์ดไปยัง Column อื่น
+4. กด ✏️ เพื่อแก้ไขงาน
+5. กด ❌ เพื่อลบงาน (มี Confirm)
+6. งานจะเปลี่ยนสถานะตาม Column ที่อยู่
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## State Management
+- ใช้ **React `useReducer`** จัดการ CRUD
+- Action ที่รองรับ:
+  - ADD_TASK
+  - UPDATE_TASK
+  - DELETE_TASK
+  - CLEAR_TASKS
+- โครงสร้างถูกออกแบบให้แยก logic ออกจาก UI (SRP)
+
+---
+
+## Tech Stack
+- **React 18 + Vite**
+- **Tailwind CSS**
+- **@dnd-kit** (Drag & Drop)
+- **react-hook-form**
+- **Headless UI**
+- **Heroicons**
+
+---
+
+## วิธีการติดตั้ง (Installation)
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/phraewchuthamat/task-board-react.git
+```
+
+
+### 2. เข้าโฟลเดอร์โปรเจ็ค
+```bash
+cd task-board-react
+```
+
+
+### 3. ติดตั้ง dependencies
+```bash
+npm install
+```
+
+
+### 4. รันโปรเจ็ค
+```bash
+npm run dev
+```
