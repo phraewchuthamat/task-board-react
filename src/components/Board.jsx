@@ -10,13 +10,13 @@ export default function Board() {
     const { taskItems, moveTask } = useTask()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [taskToEdit, setTaskToEdit] = useState(null)
-
     const [activeTask, setActiveTask] = useState(null)
 
     const todoTasks = taskItems.filter((task) => task.status === 'todo')
     const doingTasks = taskItems.filter((task) => task.status === 'doing')
     const doneTasks = taskItems.filter((task) => task.status === 'done')
 
+    // ... (Handlers อื่นๆ เหมือนเดิม) ...
     const handleEditTask = (task) => {
         setTaskToEdit(task)
         setIsModalOpen(true)
@@ -40,11 +40,9 @@ export default function Board() {
         const activeTaskId = active.id
         const overId = over.id
 
-        // หา task ที่ถูกลาก
         const activeTask = taskItems.find((t) => t.id === activeTaskId)
         if (!activeTask) return
 
-        // ถ้าวางบน column ตรง ๆ (id = todo / doing / done)
         if (['todo', 'doing', 'done'].includes(overId)) {
             if (activeTask.status !== overId) {
                 moveTask(activeTaskId, overId)
@@ -52,7 +50,6 @@ export default function Board() {
             return
         }
 
-        // ถ้าวางบน task อื่น → ใช้ status ของ task นั้น
         const overTask = taskItems.find((t) => t.id === overId)
         if (!overTask) return
 
@@ -64,6 +61,7 @@ export default function Board() {
     const handleDragCancel = () => {
         setActiveTask(null)
     }
+    // ...
 
     const today = new Date().toLocaleDateString('th-TH', {
         weekday: 'long',
@@ -78,55 +76,56 @@ export default function Board() {
             onDragEnd={handleDragEnd}
             onDragCancel={handleDragCancel}
         >
-            <div className="pt-8 px-8 pb-4">
-                <h1 className="text-3xl font-bold text-theme-light-text bg-theme-light-bg dark:bg-theme-dark-bg flex items-baseline gap-3">
-                    Todo Today
-                    <span className="text-lg font-medium text-gray-500 dark:text-gray-400">
-                        {today}
-                    </span>
-                </h1>
+            <div className="container mx-auto px-6 pt-8 pb-4">
+                <div className="flex items-center justify-between">
+                    <h1 className="text-3xl font-bold text-app-text flex items-baseline gap-3">
+                        Todo Today
+                        <span className="text-lg font-medium text-app-subtle">
+                            {today}
+                        </span>
+                    </h1>
+
+                    <button
+                        onClick={() => {
+                            setTaskToEdit(null)
+                            setIsModalOpen(true)
+                        }}
+                        className="
+                            flex items-center gap-2 px-4 py-2 
+                            bg-app-accent hover:bg-cyan-600 /* ใช้ hover ที่เข้ากับสีใหม่ */
+                            text-white font-semibold text-sm rounded-lg 
+                            shadow-md hover:shadow-lg
+                            transform transition-all duration-300 ease-out
+                        "
+                    >
+                        <PlusIcon className="h-5 w-5" />
+                        <span>New Task</span>
+                    </button>
+                </div>
             </div>
 
-            <div className="flex flex-row gap-6 p-6 h-full overflow-x-auto items-start justify-center min-h-[80vh]">
-                <Column
-                    title="To Do"
-                    tasks={todoTasks}
-                    status="todo"
-                    onEdit={handleEditTask}
-                />
-                <Column
-                    title="Doing"
-                    tasks={doingTasks}
-                    status="doing"
-                    onEdit={handleEditTask}
-                />
-                <Column
-                    title="Done"
-                    tasks={doneTasks}
-                    status="done"
-                    onEdit={handleEditTask}
-                />
+            <div className="container mx-auto px-6 pb-6 mt-4">
+                <div className="flex flex-row gap-6 items-start justify-center">
+                    <Column
+                        title="To Do"
+                        tasks={todoTasks}
+                        status="todo"
+                        onEdit={handleEditTask}
+                    />
+                    <Column
+                        title="Doing"
+                        tasks={doingTasks}
+                        status="doing"
+                        onEdit={handleEditTask}
+                    />
+                    <Column
+                        title="Done"
+                        tasks={doneTasks}
+                        status="done"
+                        onEdit={handleEditTask}
+                    />
+                </div>
             </div>
-
-            <button
-                onClick={() => {
-                    setTaskToEdit(null)
-                    setIsModalOpen(true)
-                }}
-                className="
-                    fixed top-30 right-10 z-50 
-                    flex items-center gap-2 px-6 py-3 
-                    bg-linear-to-r from-blue-500 to-indigo-600 
-                    hover:from-blue-600 hover:to-indigo-700
-                    text-white font-bold text-lg rounded-full 
-                    shadow-lg hover:shadow-2xl hover:scale-105 
-                    transform transition-all duration-300 ease-out
-                    group
-                "
-            >
-                <PlusIcon className="h-6 w-6 group-hover:rotate-90 transition-transform duration-300" />
-                <span>New Task</span>
-            </button>
 
             <TaskModal
                 isOpen={isModalOpen}

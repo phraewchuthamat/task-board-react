@@ -1,6 +1,6 @@
 export const taskDefault = [
     {
-        id: 1,
+        id: '1',
         title: 'Design UI',
         description: 'ออกแบบหน้าจอ Dashboard ใหม่ทั้งหมด',
         priority: 'high',
@@ -8,7 +8,7 @@ export const taskDefault = [
         status: 'todo',
     },
     {
-        id: 2,
+        id: '2',
         title: 'Integration API',
         description: 'เชื่อมต่อ API กับ Backend',
         priority: 'medium',
@@ -16,7 +16,7 @@ export const taskDefault = [
         status: 'doing',
     },
     {
-        id: 3,
+        id: '3',
         title: 'Fix Bugs',
         description: 'แก้บั๊กหน้า Login เข้าสู่ระบบไม่ได้',
         priority: 'low',

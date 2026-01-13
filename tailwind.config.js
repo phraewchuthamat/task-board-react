@@ -8,20 +8,16 @@ export default {
                 sans: ['ui-sans-serif', 'system-ui'],
             },
             colors: {
-                theme: {
-                    dark: {
-                        bg: '#222831',
-                        surface: '#393E46',
-                        card: '#EEEEEE',
-                        text: '#00ADB5',
-                    },
-                    light: {
-                        bg: '#F8F6F4',
-                        surface: '#FCF8F8',
-                        card: '#FBEFEF',
-                        accent: '#F9DFDF',
-                        text: '#F5AFAF',
-                    },
+                brand: {
+                    bg: 'var(--bg-color)',
+                    surface: 'var(--surface-color)',
+                },
+                app: {
+                    bg: 'var(--color-bg)',
+                    surface: 'var(--color-surface)',
+                    card: 'var(--color-card)',
+                    text: 'var(--color-text)',
+                    accent: 'var(--color-accent)',
                 },
             },
         },

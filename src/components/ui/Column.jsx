@@ -16,9 +16,9 @@ function Column({ title, tasks, status, onEdit }) {
     }
 
     return (
-        <div className="flex flex-col w-90 shrink-0 rounded-3xl bg-slate-100 dark:bg-slate-900">
+        <div className="flex flex-col w-90 shrink-0 rounded-xl bg-app-surface border border-app-border shadow-md">
             {/* Header */}
-            <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+            <div className="p-4 border-b border-app-border">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <span
@@ -27,10 +27,17 @@ function Column({ title, tasks, status, onEdit }) {
                                 statusColors[status]
                             )}
                         />
-                        <h2 className="font-bold text-base">{title}</h2>
+                        <h2 className="font-semibold text-app-text">{title}</h2>
                     </div>
 
-                    <span className="text-xs font-semibold opacity-60">
+                    <span
+                        className="flex items-center justify-center
+                            min-w-[24px] h-6 px-1.5
+                            bg-gray-200 dark:bg-gray-700
+                            rounded-full 
+                            text-xs font-bold
+                            text-app-subtle /* ใช้สีตัวอักษรที่จางลง */"
+                    >
                         {tasks.length}
                     </span>
                 </div>
@@ -40,8 +47,8 @@ function Column({ title, tasks, status, onEdit }) {
             <div
                 ref={setNodeRef}
                 className={clsx(
-                    'flex-1 p-4 flex flex-col gap-3 select-none',
-                    isOver && 'ring-2 ring-blue-400 ring-inset'
+                    'flex-1 p-4 flex flex-col gap-3 select-none transition-shadow',
+                    isOver && 'ring-2 ring-blue-400 ring-inset rounded-b-xl'
                 )}
             >
                 <SortableContext
@@ -54,7 +61,7 @@ function Column({ title, tasks, status, onEdit }) {
                 </SortableContext>
 
                 {tasks.length === 0 && !isOver && (
-                    <div className="h-24 flex items-center justify-center text-xs opacity-40 border border-dashed rounded-xl">
+                    <div className="h-24 flex items-center justify-center text-sm text-app-subtle opacity-60 border-2 border-dashed border-app-border rounded-xl">
                         Drop task here
                     </div>
                 )}

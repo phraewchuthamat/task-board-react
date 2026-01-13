@@ -1,1 +1,55 @@
 @import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+    :root {
+        --color-bg: #f8f6f4;
+        --color-surface: #fcf8f8;
+        --color-card: #fbefef;
+        --color-accent: #3b82f6;
+        --color-text: #0f172a;
+        --color-subtle-text: #64748b;
+        --color-border: rgba(0, 0, 0, 0.1);
+    }
+
+    :root.dark {
+        --color-bg: #222831;
+        --color-surface: #1f2937;
+        --color-card: #374151;
+        --color-accent: #60a5fa;
+        --color-text: #f9fafb;
+        --color-subtle-text: #9ca3af;
+        --color-border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+        @apply min-h-screen transition-colors duration-500 font-sans antialiased;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+    }
+
+    .text-app-subtle {
+        color: var(--color-subtle-text);
+    }
+    .border-app-border {
+        border-color: var(--color-border);
+    }
+}
+
+@theme {
+    --color-app-bg: var(--color-bg);
+    --color-app-surface: var(--color-surface);
+    --color-app-card: var(--color-card);
+    --color-app-accent: var(--color-accent);
+    --color-app-text: var(--color-text);
+}
+
+@layer utilities {
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background: transparent;
+    }
+}

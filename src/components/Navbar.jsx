@@ -5,16 +5,15 @@ export default function Navbar() {
     return (
         <Disclosure
             as="nav"
-            className="sticky top-4 z-50 mx-4 mt-2 rounded-2xl bg-theme-light-surface/80 dark:bg-theme-dark-surface/80 backdrop-blur-md shadow-lg border border-theme-light-accent/30 dark:border-theme-dark-text/20 transition-all duration-300"
+            className="relative bg-app-surface transition-colors duration-300 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:border-app-border"
         >
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <span className="text-xl font-bold tracking-tight text-gray-800 dark:text-theme-dark-card">
-                            Kanban Board
-                        </span>
+                    <div className="flex space-x-4 text-gray-900 dark:text-gray-300 text-2xl font-bold transition-colors duration-300">
+                        Kanban Board
                     </div>
-                    <div className="flex items-center gap-4">
+
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-4">
                         <ThemeToggleButton />
                     </div>
                 </div>
