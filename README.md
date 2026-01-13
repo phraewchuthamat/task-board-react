@@ -73,3 +73,11 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Preview
+
+### Dark Mode
+<details> <summary style="cursor:pointer">📸 Click to view Dark Mode</summary> <p align="center"> <img src="./public/Screenshot-darkmode.png" alt="Task Board - Dark Mode" width="1000" /> </p> </details>
+
+### Light Mode
+<details> <summary style="cursor:pointer">📸 Click to view Light Mode</summary> <p align="center"> <img src="./public/Screenshot-lightmode.png" alt="Task Board - Light Mode" width="1000" /> </p> </details>
