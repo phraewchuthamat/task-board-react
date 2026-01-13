@@ -1,62 +1,61 @@
-import TaskCard from './TaskCard'
+import { memo } from 'react'
 import { useDroppable } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import TaskCard from './TaskCard'
+import clsx from 'clsx'
 
 function Column({ title, tasks, status, onEdit }) {
     const { setNodeRef, isOver } = useDroppable({
         id: status,
     })
 
-    const statusColor =
-        status === 'todo'
-            ? 'bg-blue-500'
-            : status === 'doing'
-            ? 'bg-yellow-500'
-            : 'bg-green-500'
+    const statusColors = {
+        todo: 'bg-blue-500',
+        doing: 'bg-yellow-500',
+        done: 'bg-emerald-500',
+    }
 
     return (
-        <div
-            ref={setNodeRef}
-            className={`
-                flex flex-col 
-                min-w-95 max-w-100 h-full max-h-[85vh]
-                rounded-xl shadow-lg border-2              
-                bg-theme-light-surface dark:bg-theme-dark-surface
-                ${
-                    isOver
-                        ? 'border-blue-500 bg-blue-50 dark:bg-gray-700/50 shadow-blue-500/20'
-                        : 'border-transparent dark:border-gray-700/50'
-                }
-            `}
-        >
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center sticky top-0 bg-inherit rounded-t-xl z-10 backdrop-blur-sm">
-                <div className="flex items-center gap-2">
-                    <div
-                        className={`w-3 h-3 rounded-full ${statusColor} shadow-sm`}
-                    />
-                    <h2 className="text-lg font-bold text-theme-light-text dark:text-theme-dark-text uppercase tracking-wide">
-                        {title}
-                    </h2>
-                </div>
+        <div className="flex flex-col w-90 shrink-0 rounded-3xl bg-slate-100 dark:bg-slate-900">
+            {/* Header */}
+            <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <span
+                            className={clsx(
+                                'w-3 h-3 rounded-full',
+                                statusColors[status]
+                            )}
+                        />
+                        <h2 className="font-bold text-base">{title}</h2>
+                    </div>
 
-                <span
-                    className="
-                    bg-white dark:bg-gray-700 
-                    text-gray-600 dark:text-gray-300 
-                    text-xs font-bold px-2.5 py-1 rounded-full shadow-sm border border-gray-100 dark:border-gray-600
-                "
-                >
-                    {tasks.length}
-                </span>
+                    <span className="text-xs font-semibold opacity-60">
+                        {tasks.length}
+                    </span>
+                </div>
             </div>
 
-            <div className="flex-1 p-3 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent flex flex-col gap-3">
-                {tasks.length > 0 ? (
-                    tasks.map((task) => (
+            {/* Task list */}
+            <div
+                ref={setNodeRef}
+                className={clsx(
+                    'flex-1 p-4 flex flex-col gap-3 select-none',
+                    isOver && 'ring-2 ring-blue-400 ring-inset'
+                )}
+            >
+                <SortableContext
+                    items={tasks.map((t) => t.id)}
+                    strategy={verticalListSortingStrategy}
+                >
+                    {tasks.map((task) => (
                         <TaskCard key={task.id} task={task} onEdit={onEdit} />
-                    ))
-                ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 border-2 border-dashed border-gray-200 dark:border-gray-700/50 rounded-lg p-4 m-2 animate-pulse">
-                        <p className="text-sm font-medium">Drop items here</p>
+                    ))}
+                </SortableContext>
+
+                {tasks.length === 0 && !isOver && (
+                    <div className="h-24 flex items-center justify-center text-xs opacity-40 border border-dashed rounded-xl">
+                        Drop task here
                     </div>
                 )}
             </div>
@@ -64,4 +63,4 @@ function Column({ title, tasks, status, onEdit }) {
     )
 }
 
-export default Column
+export default memo(Column)

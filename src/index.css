@@ -7,4 +7,23 @@
     .scrollbar-thin::-webkit-scrollbar-track {
         background: transparent;
     }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        @apply bg-gray-400/50 dark:bg-gray-600/50 rounded-full hover:bg-gray-400 dark:hover:bg-gray-500;
+    }
+
+    .glass {
+        @apply bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg;
+    }
+
+    .glass-card {
+        @apply bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all duration-300;
+    }
+}
+
+body {
+    @apply min-h-screen transition-colors duration-500
+           bg-gradient-to-br from-[#F8F6F4] via-[#E3F4F4] to-[#C4DFDF]
+           dark:from-[#27374D] dark:via-[#526D82] dark:to-[#27374D]
+           text-[#27374D] dark:text-[#DDE6ED];
+    background-attachment: fixed;
 }

@@ -7,18 +7,17 @@ export default {
             colors: {
                 theme: {
                     dark: {
-                        bg: '#27374D',
-                        surface: '#526D82',
-                        card: '#9DB2BF',
-                        text: '#DDE6ED',
+                        bg: '#222831',
+                        surface: '#393E46',
+                        card: '#EEEEEE',
+                        text: '#00ADB5',
                     },
-                    // Light Mode Palette
                     light: {
                         bg: '#F8F6F4',
-                        surface: '#E3F4F4',
-                        card: '#D2E9E9',
-                        accent: '#C4DFDF',
-                        text: '#27374D',
+                        surface: '#FCF8F8',
+                        card: '#FBEFEF',
+                        accent: '#F9DFDF',
+                        text: '#F5AFAF',
                     },
                 },
             },

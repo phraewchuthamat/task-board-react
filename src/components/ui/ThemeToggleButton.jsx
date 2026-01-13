@@ -7,21 +7,32 @@ const ThemeToggleButton = () => {
     return (
         <button
             onClick={toggleTheme}
+            aria-label="Toggle Dark Mode"
             className={`
-                flex items-center gap-2 border box-border font-medium leading-5 rounded-full text-sm px-4 py-2.5 focus:outline-none transition-colors duration-300
+                relative p-2 rounded-full transition-all duration-300 ease-in-out
+                hover:scale-110 active:scale-95 shadow-sm
+                
                 ${
                     theme === 'light'
-                        ? 'bg-white text-gray-800 border-gray-300 hover:bg-gray-100'
-                        : 'bg-gray-800 text-white border-gray-600 hover:bg-gray-700'
+                        ? 'bg-white text-slate-500 hover:text-indigo-600 hover:bg-slate-100 border border-slate-200'
+                        : ''
+                }
+                
+
+                ${
+                    theme === 'dark'
+                        ? 'bg-slate-800 text-slate-400 hover:text-yellow-400 border border-slate-700'
+                        : ''
                 }
             `}
         >
-            {theme === 'light' ? (
-                <MoonIcon className="w-5 h-5" />
-            ) : (
-                <SunIcon className="w-5 h-5" />
-            )}
-            {theme === 'light' ? 'Light' : 'Dark'} Mode
+            <div className="relative w-5 h-5">
+                {theme === 'light' ? (
+                    <MoonIcon className="w-5 h-5 animate-in fade-in zoom-in duration-300" />
+                ) : (
+                    <SunIcon className="w-5 h-5 animate-in fade-in zoom-in duration-300" />
+                )}
+            </div>
         </button>
     )
 }

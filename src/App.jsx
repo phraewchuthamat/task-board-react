@@ -1,4 +1,4 @@
-import Dashboard from './components/Dashboard'
+import Board from './components/Board'
 import Navbar from './components/Navbar'
 import AlertPopup from './components/ui/AlertPopup'
 
@@ -8,7 +8,7 @@ function App() {
             <Navbar />
             <AlertPopup />
             <main>
-                <Dashboard />
+                <Board />
             </main>
         </div>
     )

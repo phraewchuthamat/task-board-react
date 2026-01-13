@@ -6,27 +6,22 @@ export default function Navbar() {
         <Disclosure
             as="nav"
             className="
-                relative 
-                bg-theme-light-surface dark:bg-theme-dark-surface 
-                transition-colors duration-500 
-                
-                after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px 
-                after:bg-theme-light-accent dark:after:bg-white/10
-                shadow-sm
+                sticky top-4 z-50 mx-4 mt-2 rounded-2xl
+                glass transition-all duration-500
             "
         >
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
-                    <div
-                        className="
-                        flex space-x-4 text-2xl font-bold transition-colors duration-300
-                        text-theme-light-text dark:text-theme-dark-text
-                    "
-                    >
-                        Kanban Board
+                    <div className="flex items-center gap-3">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-blue-500 to-teal-400 text-white font-bold shadow-md shadow-blue-500/30">
+                            KB
+                        </div>
+                        <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-700 to-slate-900 dark:from-white dark:to-slate-300">
+                            Kanban Board
+                        </span>
                     </div>
 
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-4">
+                    <div className="flex items-center gap-4">
                         <ThemeToggleButton />
                     </div>
                 </div>
