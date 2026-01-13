@@ -1,5 +1,5 @@
+import AlertPopup from './components/AlartPopup/AlertPopup'
 import Navbar from './components/Navbar'
-import AlertPopup from './components/ui/AlertPopup'
 import BoardPage from './pages/BoardPage'
 
 function App() {

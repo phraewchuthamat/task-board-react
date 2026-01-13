@@ -13,7 +13,16 @@ export default function TaskModal({ isOpen, onClose, taskToEdit }) {
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
 
                 <div className="fixed inset-0 flex items-center justify-center p-4">
-                    <Dialog.Panel className="w-full max-w-xl rounded-2xl bg-white p-6">
+                    <Dialog.Panel
+                        className="
+                            w-full max-w-xl rounded-2xl p-6
+                            bg-white dark:bg-gray-800
+                            text-gray-900 dark:text-white
+                            border border-gray-200 dark:border-gray-700
+                            shadow-xl
+                            transition-colors
+                        "
+                    >
                         <div className="flex justify-between mb-6">
                             <Dialog.Title className="text-2xl font-bold">
                                 {form.isEditMode ? 'Edit Task' : 'New Task'}

@@ -44,14 +44,14 @@ export default function TaskForm({ form, onSubmit, isEditMode, onCancel }) {
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="px-5 py-2.5 rounded-lg text-sm font-medium"
+                    className="px-5 py-2 rounded-lg text-sm font-medium text-white border-solid bg-red-400"
                 >
                     Cancel
                 </button>
 
                 <button
                     type="submit"
-                    className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-blue-600"
+                    className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-blue-500"
                 >
                     {isEditMode ? 'Save Changes' : 'Create Task'}
                 </button>
