@@ -1,17 +1,12 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { XMarkIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
-import { useTask } from '../../../hooks/useTask'
-import useAlert from '../../../hooks/useAlert'
-import ConfirmDialog from '../ConfirmDialog'
+import ConfirmDialog from '../dialog/ConfirmDialog'
 
-export default function TaskCardActions({ task, onEdit }) {
+function TaskCardActions({ task, onEdit, onDelete }) {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
-    const { removeFromTask } = useTask()
-    const { setAlert } = useAlert()
 
-    const handleDelete = () => {
-        removeFromTask(task.id)
-        setAlert('ลบข้อมูลสำเร็จ!', 'success')
+    const handleConfirmDelete = () => {
+        onDelete(task.id)
         setIsConfirmOpen(false)
     }
 
@@ -44,10 +39,12 @@ export default function TaskCardActions({ task, onEdit }) {
             <ConfirmDialog
                 isOpen={isConfirmOpen}
                 onClose={() => setIsConfirmOpen(false)}
-                onConfirm={handleDelete}
+                onConfirm={handleConfirmDelete}
                 title="Confirm deletion"
                 message={`Are you sure you want to delete "${task.title}"?`}
             />
         </>
     )
 }
+
+export default memo(TaskCardActions)

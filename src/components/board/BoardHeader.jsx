@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 
-export default function BoardHeader({ onNew }) {
+const BoardHeader = ({ onNew }) => {
     const today = new Date().toLocaleDateString('th-TH', {
         weekday: 'long',
         day: 'numeric',
@@ -32,3 +33,5 @@ export default function BoardHeader({ onNew }) {
         </div>
     )
 }
+
+export default memo(BoardHeader)

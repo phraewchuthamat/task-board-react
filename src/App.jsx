@@ -1,6 +1,6 @@
 import AlertPopup from './components/AlartPopup/AlertPopup'
+import Board from './components/board/Board'
 import Navbar from './components/Navbar'
-import BoardPage from './pages/BoardPage'
 
 function App() {
     return (
@@ -8,7 +8,7 @@ function App() {
             <Navbar />
             <AlertPopup />
             <main className="container mx-auto px-4 py-6">
-                <BoardPage />
+                <Board />
             </main>
         </div>
     )

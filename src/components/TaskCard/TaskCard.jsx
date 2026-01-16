@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import TaskCardActions from './TaskCardActions'
 import TaskCardMeta from './TaskCardMeta'
 
-function TaskCard({ task, onEdit, isOverlay = false }) {
+function TaskCard({ task, onEdit, onDelete, isOverlay = false }) {
     const { setNodeRef, attributes, listeners, transform, transition } =
         useSortable({ id: task.id })
 
@@ -28,7 +28,7 @@ function TaskCard({ task, onEdit, isOverlay = false }) {
                 isOverlay && 'pointer-events-none opacity-90'
             )}
         >
-            <TaskCardActions task={task} onEdit={onEdit} />
+            <TaskCardActions task={task} onEdit={onEdit} onDelete={onDelete} />
 
             <h3 className="font-semibold text-sm mb-1 pr-12 text-app-text">
                 {task.title}

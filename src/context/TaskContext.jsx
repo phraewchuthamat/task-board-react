@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from 'react'
+import { createContext, useEffect, useReducer, useCallback } from 'react'
 import { taskReducer, TASK_ACTIONS } from '../reducer/taskReducer'
 import { taskDefault } from '../utils/storage'
 
@@ -12,34 +12,49 @@ const getInitialState = () => {
 export default function TaskProvider({ children }) {
     const [taskItems, dispatch] = useReducer(taskReducer, [], getInitialState)
 
-    const createTask = (taskData) => {
-        const newTask = {
-            id: Date.now(),
-            ...taskData,
-            status: 'todo',
-            createdAt: new Date().toISOString(),
-        }
-        dispatch({ type: TASK_ACTIONS.ADD_TASK, payload: newTask })
-    }
+    const createTask = useCallback(
+        (taskData) => {
+            const newTask = {
+                id: Date.now(),
+                ...taskData,
+                status: 'todo',
+                createdAt: new Date().toISOString(),
+            }
+            dispatch({ type: TASK_ACTIONS.ADD_TASK, payload: newTask })
+        },
+        [dispatch]
+    )
 
-    const updateTask = (id, updates) => {
-        dispatch({
-            type: TASK_ACTIONS.UPDATE_TASK,
-            payload: { id, ...updates },
-        })
-    }
+    const updateTask = useCallback(
+        (id, updates) => {
+            dispatch({
+                type: TASK_ACTIONS.UPDATE_TASK,
+                payload: { id, ...updates },
+            })
+        },
+        [dispatch]
+    )
 
-    const moveTask = (id, status) => {
-        dispatch({ type: TASK_ACTIONS.UPDATE_TASK, payload: { id, status } })
-    }
+    const moveTask = useCallback(
+        (id, status) => {
+            dispatch({
+                type: TASK_ACTIONS.UPDATE_TASK,
+                payload: { id, status },
+            })
+        },
+        [dispatch]
+    )
 
-    const removeFromTask = (id) => {
-        dispatch({ type: TASK_ACTIONS.DELETE_TASK, payload: id })
-    }
+    const removeFromTask = useCallback(
+        (id) => {
+            dispatch({ type: TASK_ACTIONS.DELETE_TASK, payload: id })
+        },
+        [dispatch]
+    )
 
-    const clearTask = () => {
+    const clearTask = useCallback(() => {
         dispatch({ type: TASK_ACTIONS.CLEAR_TASKS })
-    }
+    }, [dispatch])
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(taskItems))

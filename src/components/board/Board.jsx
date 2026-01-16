@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { DndContext, DragOverlay, closestCorners } from '@dnd-kit/core'
 import { useTask } from '../../hooks/useTask'
 import { useBoardDrag } from '../../hooks/useBoardDrag'
 
 import BoardHeader from './BoardHeader'
 import BoardColumns from './BoardColumns'
-import TaskCard from '../ui/TaskCard/TaskCard'
+import TaskCard from '../TaskCard/TaskCard'
 import TaskModal from '../TaskModal/TaskModal'
 
 export default function Board() {
@@ -18,15 +18,15 @@ export default function Board() {
         moveTask
     )
 
-    const handleEditTask = (task) => {
+    const handleEditTask = useCallback((task) => {
         setTaskToEdit(task)
         setIsModalOpen(true)
-    }
+    }, [])
 
-    const handleNewTask = () => {
+    const handleNewTask = useCallback(() => {
         setTaskToEdit(null)
         setIsModalOpen(true)
-    }
+    }, [])
 
     return (
         <DndContext

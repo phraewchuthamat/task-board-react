@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import Column from '../column/Column'
 
-export default function BoardColumns({ tasks, onEdit }) {
+const BoardColumns = ({ tasks, onEdit }) => {
     const columns = [
         { title: 'To Do', status: 'todo' },
         { title: 'Doing', status: 'doing' },
@@ -23,3 +24,5 @@ export default function BoardColumns({ tasks, onEdit }) {
         </div>
     )
 }
+
+export default memo(BoardColumns)
