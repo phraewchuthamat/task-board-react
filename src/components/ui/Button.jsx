@@ -10,6 +10,7 @@ const Button = forwardRef(
             className,
             disabled,
             loading,
+            type = 'button',
             ...props
         },
         ref
@@ -38,6 +39,7 @@ const Button = forwardRef(
         return (
             <button
                 ref={ref}
+                type={type}
                 disabled={disabled || loading}
                 className={clsx(
                     baseStyles,

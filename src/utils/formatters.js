@@ -14,12 +14,6 @@ export const priorityColors = {
     low: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30',
 }
 
-export const STATUS_COLORS = {
-    todo: 'bg-blue-500',
-    doing: 'bg-yellow-500',
-    done: 'bg-emerald-500',
-}
-
 export const DEFAULT_COLUMNS = [
     { title: 'Planer', status: 'plan', color: 'bg-yellow-500' },
     { title: 'To Do', status: 'todo', color: 'bg-blue-500' },

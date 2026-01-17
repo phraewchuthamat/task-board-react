@@ -18,7 +18,16 @@ export default function TaskProvider({ children }) {
 
     const [columns, setColumns] = useState(() => {
         const savedCols = localStorage.getItem('board_columns')
-        return savedCols ? JSON.parse(savedCols) : DEFAULT_COLUMNS
+
+        if (savedCols) {
+            const parsed = JSON.parse(savedCols)
+            return parsed.map((col) => ({
+                ...col,
+                color: col.color || 'bg-gray-500',
+            }))
+        }
+
+        return DEFAULT_COLUMNS
     })
 
     useEffect(() => {
@@ -87,7 +96,7 @@ export default function TaskProvider({ children }) {
         dispatch({ type: TASK_ACTIONS.CLEAR_TASK })
     }, [dispatch])
 
-    const addColumn = useCallback((title, color = 'bg-gray-500') => {
+    const addColumn = useCallback((title, color) => {
         if (!title || !title.trim()) return
 
         const newStatus = title.trim().toLowerCase().replace(/\s+/g, '-')
@@ -101,7 +110,7 @@ export default function TaskProvider({ children }) {
     const updateColumn = useCallback((status, newTitle, newColor) => {
         setColumns((prev) =>
             prev.map((col) => {
-                if (col.staus === status) {
+                if (col.status === status) {
                     return {
                         ...col,
                         title: newTitle,

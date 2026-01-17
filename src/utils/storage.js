@@ -2,7 +2,7 @@ export const taskDefault = [
     {
         id: '1',
         title: 'Design Wireframe Figma',
-        description: 'ออกแบบ mockup figma และออกแบบ Resposive ทุก device',
+        description: 'ออกแบบ mockup figma Resposive ทุก device',
         priority: 'high',
         createdAt: new Date().toISOString(),
         status: 'plan',

@@ -38,10 +38,10 @@ export default function useTaskForm({ taskToEdit, isOpen, onClose }) {
     const onSubmit = (data) => {
         if (taskToEdit) {
             updateTask(taskToEdit.id, data)
-            setAlert('แก้ไขงานสำเร็จ!', 'success')
+            setAlert('Edit task finish!', 'success')
         } else {
             createTask(data)
-            setAlert('สร้างงานใหม่สำเร็จ!', 'success')
+            setAlert('Create new task successfully!', 'success')
         }
         onClose()
     }
