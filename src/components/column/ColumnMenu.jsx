@@ -2,11 +2,12 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import {
     EllipsisHorizontalIcon,
+    MagnifyingGlassIcon,
     PencilSquareIcon,
     TrashIcon,
 } from '@heroicons/react/24/outline'
 
-export default function ColumnMenu({ onEdit, onDelete }) {
+export default function ColumnMenu({ onEdit, onDelete, onToggleSearch }) {
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
@@ -32,6 +33,27 @@ export default function ColumnMenu({ onEdit, onDelete }) {
                         <Menu.Item>
                             {({ active }) => (
                                 <button
+                                    onClick={onToggleSearch}
+                                    className={`${
+                                        active
+                                            ? 'bg-app-primary text-white'
+                                            : 'text-app-text'
+                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                >
+                                    <MagnifyingGlassIcon
+                                        className="mr-2 h-4 w-4"
+                                        aria-hidden="true"
+                                    />
+                                    Search Tasks
+                                </button>
+                            )}
+                        </Menu.Item>
+                    </div>
+
+                    <div className="px-1 py-1">
+                        <Menu.Item>
+                            {({ active }) => (
+                                <button
                                     onClick={onEdit}
                                     className={`${
                                         active
@@ -48,6 +70,7 @@ export default function ColumnMenu({ onEdit, onDelete }) {
                             )}
                         </Menu.Item>
                     </div>
+
                     <div className="px-1 py-1">
                         <Menu.Item>
                             {({ active }) => (

@@ -2,7 +2,14 @@ import { memo } from 'react'
 import clsx from 'clsx'
 import ColumnMenu from './ColumnMenu'
 
-function ColumnHeader({ title, count, color, onEditClick, onDeleteClick }) {
+function ColumnHeader({
+    title,
+    count,
+    color,
+    onEditClick,
+    onDeleteClick,
+    onToggleSearch,
+}) {
     return (
         <div className="p-2 pb-2 border-b border-app-border">
             <div className="flex items-center justify-between">
@@ -21,7 +28,11 @@ function ColumnHeader({ title, count, color, onEditClick, onDeleteClick }) {
                     </span>
                 </div>
 
-                <ColumnMenu onEdit={onEditClick} onDelete={onDeleteClick} />
+                <ColumnMenu
+                    onEdit={onEditClick}
+                    onDelete={onDeleteClick}
+                    onToggleSearch={onToggleSearch}
+                />
             </div>
         </div>
     )
