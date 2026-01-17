@@ -3,7 +3,7 @@ export default function Select({
     name,
     register,
     validation,
-    options = [], // รับ array ของ options [{ value: '...', label: '...' }]
+    options = [],
     className = '',
 }) {
     return (
@@ -26,7 +26,6 @@ export default function Select({
                     ))}
                 </select>
 
-                {/* Custom Arrow Icon */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500 dark:text-gray-400">
                     <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
                         <path

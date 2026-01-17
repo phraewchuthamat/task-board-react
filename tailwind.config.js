@@ -12,15 +12,16 @@ export default {
                     bg: 'var(--color-bg)',
                     surface: 'var(--color-surface)',
                     card: 'var(--color-card)',
+                    column: 'var(--color-column)',
                     border: 'var(--color-border)',
 
                     text: 'var(--color-text)',
                     subtle: 'var(--color-subtle-text)',
 
                     // Button & Actions
-                    primary: 'var(--color-accent)',
+                    primary: 'var(--color-success)',
                     'primary-hover': 'var(--color-accent-hover)',
-                    'primary-fg': 'var(--color-accent-text)', // foreground text
+                    'primary-fg': 'var(--color-accent-text)',
 
                     danger: 'var(--color-danger)',
                     'danger-hover': 'var(--color-danger-hover)',

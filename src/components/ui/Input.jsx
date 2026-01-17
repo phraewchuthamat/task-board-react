@@ -3,12 +3,11 @@ export default function Input({
     name,
     type = 'text',
     register,
-    validation, // รับกฎการตรวจสอบ (Validation Rules)
-    errors, // รับ object errors เพื่อเช็คว่ามี error ไหม
+    validation,
+    errors,
     placeholder,
     className = '',
 }) {
-    // เช็คว่ามี error ใน field นี้ไหม
     const hasError = errors && errors[name]
 
     return (

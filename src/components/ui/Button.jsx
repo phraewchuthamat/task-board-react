@@ -14,11 +14,9 @@ const Button = forwardRef(
         },
         ref
     ) => {
-        // Base Styles (Styles ที่ทุกปุ่มต้องมี)
         const baseStyles =
             'inline-flex items-center justify-center rounded-lg font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed select-none'
 
-        // Variants (สีต่างๆ)
         const variants = {
             primary:
                 'bg-app-primary text-app-primary-fg hover:bg-app-primary-hover shadow-sm focus:ring-app-primary',
@@ -30,12 +28,11 @@ const Button = forwardRef(
             danger: 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-900',
         }
 
-        // Sizes (ขนาด)
         const sizes = {
             sm: 'h-8 px-3 text-xs',
             md: 'h-10 px-4 text-sm',
             lg: 'h-12 px-6 text-base',
-            icon: 'h-10 w-10 p-2', // สำหรับปุ่มที่มีแค่ไอคอน
+            icon: 'h-10 w-10 p-2',
         }
 
         return (
@@ -51,7 +48,6 @@ const Button = forwardRef(
                 {...props}
             >
                 {loading ? (
-                    // Simple Loading Spinner
                     <svg
                         className="animate-spin -ml-1 mr-2 h-4 w-4 text-current"
                         xmlns="http://www.w3.org/2000/svg"

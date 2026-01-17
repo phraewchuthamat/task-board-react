@@ -8,7 +8,7 @@ const ColumnContainer = forwardRef(({ children, className, ...props }, ref) => {
             className={clsx(
                 'flex flex-col shrink-0',
                 'w-full md:w-80',
-                'rounded-xl bg-app-surface border border-app-border shadow-md',
+                'rounded-xl bg-app-surface border border-app-surface',
                 className
             )}
             {...props}
