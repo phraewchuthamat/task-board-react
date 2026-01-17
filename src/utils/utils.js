@@ -7,3 +7,9 @@ export const formatDate = (dateString) => {
 }
 
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export const priorityColors = {
+    high: 'bg-rose-500/10 text-rose-500 border-rose-500/30',
+    medium: 'bg-amber-500/10 text-amber-500 border-amber-500/30',
+    low: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30',
+}

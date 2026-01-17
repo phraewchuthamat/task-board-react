@@ -1,4 +1,4 @@
-import AlertPopup from './components/AlartPopup/AlertPopup'
+import AlertPopup from './components/AlertPopup/AlertPopup'
 import Board from './components/board/Board'
 import Navbar from './components/Navbar'
 

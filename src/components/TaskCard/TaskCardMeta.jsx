@@ -1,12 +1,6 @@
 import { CalendarIcon } from '@heroicons/react/24/outline'
-import { formatDate } from '../../utils/utils'
+import { formatDate, priorityColors } from '../../utils/utils'
 import clsx from 'clsx'
-
-const priorityColors = {
-    high: 'bg-rose-500/10 text-rose-500 border-rose-500/30',
-    medium: 'bg-amber-500/10 text-amber-500 border-amber-500/30',
-    low: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30',
-}
 
 export default function TaskCardMeta({ task }) {
     return (
