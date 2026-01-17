@@ -6,9 +6,10 @@ const ColumnContainer = forwardRef(({ children, className, ...props }, ref) => {
         <div
             ref={ref}
             className={clsx(
-                'flex flex-col shrink-0',
-                'w-full md:w-80',
-                'rounded-xl bg-app-surface border border-app-surface',
+                'w-80 shrink-0',
+                'flex flex-col',
+                'max-h-full',
+                'rounded-xl bg-app-surface border border-app-border shadow-sm transition-shadow hover:shadow-md',
                 className
             )}
             {...props}
@@ -17,7 +18,5 @@ const ColumnContainer = forwardRef(({ children, className, ...props }, ref) => {
         </div>
     )
 })
-
-ColumnContainer.displayName = 'ColumnContainer'
 
 export default ColumnContainer

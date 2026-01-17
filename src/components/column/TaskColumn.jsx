@@ -88,7 +88,7 @@ function TaskColumn({ title, tasks, status, color, onEdit }) {
                 <div
                     className={clsx(
                         'flex-1 overflow-y-auto min-h-0 p-4 pt-0 flex flex-col gap-3 transition-colors',
-                        'scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600',
+                        'scrollbar-thin',
                         isOver && 'bg-app-primary/5'
                     )}
                 >
