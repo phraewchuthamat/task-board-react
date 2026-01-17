@@ -1,28 +1,30 @@
 import { useTheme } from '../../hooks/useTheme'
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline'
+import Button from './Button'
 
 const ThemeToggleButton = () => {
     const { isDark, toggleTheme } = useTheme()
 
     return (
-        <button
+        <Button
+            variant="secondary"
+            size="icon"
             onClick={toggleTheme}
             aria-label="Toggle Dark Mode"
-            className={`
-                relative p-2 rounded-full transition-all duration-300 ease-in-out
-                hover:scale-110 active:scale-95 
-                bg-app-surface text-app-text border border-app-border
-                hover:bg-gray-200 dark:hover:bg-gray-700
-            `}
+            className="rounded-full transition-transform hover:scale-105"
         >
-            <div className="relative w-5 h-5">
+            <div
+                className={`relative flex items-center justify-center transition-all duration-500 ${
+                    isDark ? 'rotate-[360deg]' : 'rotate-0'
+                }`}
+            >
                 {isDark ? (
-                    <SunIcon className="w-5 h-5 text-yellow-400" />
+                    <SunIcon className="w-5 h-5 text-amber-500" />
                 ) : (
                     <MoonIcon className="w-5 h-5 text-indigo-600" />
                 )}
             </div>
-        </button>
+        </Button>
     )
 }
 

@@ -1,6 +1,8 @@
 import Input from '../ui/Input'
 import Textarea from '../ui/Textarea'
 import Select from '../ui/Select'
+import Button from '../ui/Button'
+import { PRIORITY_OPTIONS } from '../../utils/formatters'
 
 export default function TaskForm({ form, onSubmit, isEditMode, onCancel }) {
     const {
@@ -10,7 +12,7 @@ export default function TaskForm({ form, onSubmit, isEditMode, onCancel }) {
     } = form
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <Input
                 label="Title"
                 name="title"
@@ -33,28 +35,17 @@ export default function TaskForm({ form, onSubmit, isEditMode, onCancel }) {
                 label="Priority"
                 name="priority"
                 register={register}
-                options={[
-                    { value: 'low', label: 'Low' },
-                    { value: 'medium', label: 'Medium' },
-                    { value: 'high', label: 'High' },
-                ]}
+                options={PRIORITY_OPTIONS}
             />
 
             <div className="mt-8 flex justify-end gap-3">
-                <button
-                    type="button"
-                    onClick={onCancel}
-                    className="px-5 py-2 rounded-lg text-sm font-medium text-white border-solid bg-red-400"
-                >
+                <Button type="button" variant="secondary" onClick={onCancel}>
                     Cancel
-                </button>
+                </Button>
 
-                <button
-                    type="submit"
-                    className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-blue-500"
-                >
+                <Button type="submit" variant="primary">
                     {isEditMode ? 'Save Changes' : 'Create Task'}
-                </button>
+                </Button>
             </div>
         </form>
     )

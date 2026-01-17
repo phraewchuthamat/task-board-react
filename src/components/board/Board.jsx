@@ -1,9 +1,9 @@
-import { useState, useCallback } from 'react'
 import { DndContext, DragOverlay, closestCorners } from '@dnd-kit/core'
 import { useTask } from '../../hooks/useTask'
 import { useBoardDrag } from '../../hooks/useBoardDrag'
-import LoadingScreen from '../ui/LoadingScreen'
+import { useTaskModal } from '../../hooks/useTaskModal'
 
+import LoadingScreen from '../ui/LoadingScreen'
 import BoardHeader from './BoardHeader'
 import BoardColumns from './BoardColumns'
 import TaskCard from '../TaskCard/TaskCard'
@@ -11,27 +11,15 @@ import TaskModal from '../TaskModal/TaskModal'
 
 export default function Board() {
     const { taskItems, moveTask, isLoading } = useTask()
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [taskToEdit, setTaskToEdit] = useState(null)
 
     const { activeTask, onDragStart, onDragEnd, onDragCancel } = useBoardDrag(
         taskItems,
         moveTask
     )
 
-    const handleEditTask = useCallback((task) => {
-        setTaskToEdit(task)
-        setIsModalOpen(true)
-    }, [])
+    const modal = useTaskModal()
 
-    const handleNewTask = useCallback(() => {
-        setTaskToEdit(null)
-        setIsModalOpen(true)
-    }, [])
-
-    if (isLoading) {
-        return <LoadingScreen text="Loading board..." />
-    }
+    if (isLoading) return <LoadingScreen text="Loading board..." />
 
     return (
         <DndContext
@@ -40,14 +28,14 @@ export default function Board() {
             onDragEnd={onDragEnd}
             onDragCancel={onDragCancel}
         >
-            <BoardHeader onNew={handleNewTask} />
+            <BoardHeader onNew={modal.openNewTask} />
 
-            <BoardColumns tasks={taskItems} onEdit={handleEditTask} />
+            <BoardColumns tasks={taskItems} onEdit={modal.openEditTask} />
 
             <TaskModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                taskToEdit={taskToEdit}
+                isOpen={modal.isOpen}
+                onClose={modal.closeModal}
+                taskToEdit={modal.taskToEdit}
             />
 
             <DragOverlay>

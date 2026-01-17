@@ -25,3 +25,9 @@ export const BOARD_COLUMNS = [
     { title: 'Doing', status: 'doing' },
     { title: 'Done', status: 'done' },
 ]
+
+export const PRIORITY_OPTIONS = [
+    { value: 'low', label: 'Low' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'high', label: 'High' },
+]
