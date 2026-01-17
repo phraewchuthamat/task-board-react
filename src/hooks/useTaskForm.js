@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useTask } from '../../hooks/useTask'
-import useAlert from '../../hooks/useAlert'
+import { useTask } from './useTask'
+import useAlert from './useAlert'
 
 export default function useTaskForm({ taskToEdit, isOpen, onClose }) {
     const { createTask, updateTask } = useTask()

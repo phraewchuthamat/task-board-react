@@ -5,19 +5,25 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['ui-sans-serif', 'system-ui'],
+                sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             },
             colors: {
-                brand: {
-                    bg: 'var(--bg-color)',
-                    surface: 'var(--surface-color)',
-                },
                 app: {
                     bg: 'var(--color-bg)',
                     surface: 'var(--color-surface)',
                     card: 'var(--color-card)',
+                    border: 'var(--color-border)',
+
                     text: 'var(--color-text)',
-                    accent: 'var(--color-accent)',
+                    subtle: 'var(--color-subtle-text)',
+
+                    // Button & Actions
+                    primary: 'var(--color-accent)',
+                    'primary-hover': 'var(--color-accent-hover)',
+                    'primary-fg': 'var(--color-accent-text)', // foreground text
+
+                    danger: 'var(--color-danger)',
+                    'danger-hover': 'var(--color-danger-hover)',
                 },
             },
         },

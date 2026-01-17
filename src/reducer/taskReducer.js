@@ -3,6 +3,7 @@ export const TASK_ACTIONS = {
     DELETE_TASK: 'DELETE_TASK',
     UPDATE_TASK: 'UPDATE_TASK',
     CLEAR_TASKS: 'CLEAR_TASKS',
+    INIT_TASK: 'INIT_TASK',
 }
 
 export function taskReducer(state, action) {
@@ -25,6 +26,10 @@ export function taskReducer(state, action) {
 
         case TASK_ACTIONS.CLEAR_TASKS: {
             return []
+        }
+
+        case TASK_ACTIONS.INIT_TASK: {
+            return action.payload
         }
 
         default:

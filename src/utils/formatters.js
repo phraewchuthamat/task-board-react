@@ -13,3 +13,15 @@ export const priorityColors = {
     medium: 'bg-amber-500/10 text-amber-500 border-amber-500/30',
     low: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30',
 }
+
+export const STATUS_COLORS = {
+    todo: 'bg-blue-500',
+    doing: 'bg-yellow-500',
+    done: 'bg-emerald-500',
+}
+
+export const BOARD_COLUMNS = [
+    { title: 'To Do', status: 'todo' },
+    { title: 'Doing', status: 'doing' },
+    { title: 'Done', status: 'done' },
+]

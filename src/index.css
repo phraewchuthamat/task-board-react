@@ -4,52 +4,83 @@
 
 @layer base {
     :root {
+        /* Base Colors */
         --color-bg: #f8f6f4;
-        --color-surface: #fcf8f8;
-        --color-card: #fbefef;
-        --color-accent: #3b82f6;
-        --color-text: #0f172a;
-        --color-subtle-text: #64748b;
-        --color-border: rgba(0, 0, 0, 0.1);
+        --color-surface: #ffffff; /* ปรับให้ขาวคลีนขึ้น */
+        --color-card: #fcfcfc;
+        --color-border: #e2e8f0;
+
+        /* Text Colors */
+        --color-text: #1e293b; /* Slate 800 */
+        --color-subtle-text: #64748b; /* Slate 500 */
+
+        /* Brand/Accent (Primary Action) */
+        --color-accent: #3b82f6; /* Blue 500 */
+        --color-accent-hover: #2563eb; /* Blue 600 */
+        --color-accent-text: #ffffff;
+
+        /* Semantic Colors (Button Actions) */
+        --color-danger: #ef4444; /* Red 500 */
+        --color-danger-hover: #dc2626;
+
+        --color-success: #10b981; /* Emerald 500 */
+        --color-warning: #f59e0b; /* Amber 500 */
     }
 
     :root.dark {
-        --color-bg: #222831;
-        --color-surface: #1f2937;
-        --color-card: #374151;
-        --color-accent: #60a5fa;
-        --color-text: #f9fafb;
-        --color-subtle-text: #9ca3af;
-        --color-border: rgba(255, 255, 255, 0.1);
+        /* Base Colors */
+        --color-bg: #0f172a; /* Slate 900 */
+        --color-surface: #1e293b; /* Slate 800 */
+        --color-card: #334155; /* Slate 700 */
+        --color-border: #334155;
+
+        /* Text Colors */
+        --color-text: #f8fafc; /* Slate 50 */
+        --color-subtle-text: #94a3b8; /* Slate 400 */
+
+        /* Brand/Accent */
+        --color-accent: #60a5fa; /* Blue 400 */
+        --color-accent-hover: #3b82f6;
+        --color-accent-text: #ffffff;
+
+        /* Semantic Colors */
+        --color-danger: #f87171; /* Red 400 */
+        --color-danger-hover: #ef4444;
     }
 
     body {
-        @apply min-h-screen transition-colors duration-500 font-sans antialiased;
+        @apply min-h-screen transition-colors duration-300 font-sans antialiased;
         background-color: var(--color-bg);
         color: var(--color-text);
-    }
-
-    .text-app-subtle {
-        color: var(--color-subtle-text);
-    }
-    .border-app-border {
-        border-color: var(--color-border);
     }
 }
 
 @theme {
+    /* Map CSS Variables to Tailwind Theme */
     --color-app-bg: var(--color-bg);
     --color-app-surface: var(--color-surface);
     --color-app-card: var(--color-card);
-    --color-app-accent: var(--color-accent);
+    --color-app-border: var(--color-border);
     --color-app-text: var(--color-text);
+    --color-app-subtle: var(--color-subtle-text);
+
+    --color-app-primary: var(--color-accent);
+    --color-app-primary-hover: var(--color-accent-hover);
+    --color-app-primary-foreground: var(--color-accent-text);
+
+    --color-app-danger: var(--color-danger);
+    --color-app-danger-hover: var(--color-danger-hover);
 }
 
 @layer utilities {
     .scrollbar-thin::-webkit-scrollbar {
         width: 6px;
+        height: 6px;
     }
     .scrollbar-thin::-webkit-scrollbar-track {
         background: transparent;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        @apply bg-gray-300 dark:bg-gray-600 rounded-full;
     }
 }

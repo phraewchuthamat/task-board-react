@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import useTaskForm from './useTaskForm'
+import useTaskForm from '../../hooks/useTaskForm'
 import TaskForm from './TaskForm'
 
 export default function TaskModal({ isOpen, onClose, taskToEdit }) {

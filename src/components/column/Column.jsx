@@ -3,6 +3,7 @@ import { useDroppable } from '@dnd-kit/core'
 import clsx from 'clsx'
 import TaskList from '../TaskList/TaskList'
 import ColumnHeader from './ColumnHeader'
+import ColumnContainer from './ColumnContainer'
 
 function Column({ title, tasks, status, onEdit }) {
     const { setNodeRef, isOver } = useDroppable({
@@ -10,7 +11,7 @@ function Column({ title, tasks, status, onEdit }) {
     })
 
     return (
-        <div className="flex flex-col w-90 shrink-0 rounded-xl bg-app-surface border border-app-border shadow-md">
+        <ColumnContainer ref={setNodeRef}>
             <ColumnHeader title={title} status={status} count={tasks.length} />
 
             <div
@@ -28,7 +29,7 @@ function Column({ title, tasks, status, onEdit }) {
                     </div>
                 )}
             </div>
-        </div>
+        </ColumnContainer>
     )
 }
 

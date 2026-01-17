@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { DndContext, DragOverlay, closestCorners } from '@dnd-kit/core'
 import { useTask } from '../../hooks/useTask'
 import { useBoardDrag } from '../../hooks/useBoardDrag'
+import LoadingScreen from '../ui/LoadingScreen'
 
 import BoardHeader from './BoardHeader'
 import BoardColumns from './BoardColumns'
@@ -9,7 +10,7 @@ import TaskCard from '../TaskCard/TaskCard'
 import TaskModal from '../TaskModal/TaskModal'
 
 export default function Board() {
-    const { taskItems, moveTask } = useTask()
+    const { taskItems, moveTask, isLoading } = useTask()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [taskToEdit, setTaskToEdit] = useState(null)
 
@@ -27,6 +28,10 @@ export default function Board() {
         setTaskToEdit(null)
         setIsModalOpen(true)
     }, [])
+
+    if (isLoading) {
+        return <LoadingScreen text="Loading board..." />
+    }
 
     return (
         <DndContext

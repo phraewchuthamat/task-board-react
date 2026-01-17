@@ -4,19 +4,32 @@ import {
     useReducer,
     useCallback,
     useMemo,
+    useState,
 } from 'react'
 import { taskReducer, TASK_ACTIONS } from '../reducer/taskReducer'
 import { taskDefault } from '../utils/storage'
 
 const TaskContext = createContext()
 
-const getInitialState = () => {
-    const saved = localStorage.getItem('todos')
-    return saved ? JSON.parse(saved) : taskDefault
-}
-
 export default function TaskProvider({ children }) {
-    const [taskItems, dispatch] = useReducer(taskReducer, [], getInitialState)
+    const [taskItems, dispatch] = useReducer(taskReducer, [])
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            setIsLoading(true)
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+
+            const saved = localStorage.getItem('todos')
+            const initialData = saved ? JSON.parse(saved) : taskDefault
+
+            dispatch({ type: TASK_ACTIONS.INIT_TASK, payload: initialData })
+
+            setIsLoading(false)
+        }
+
+        fetchTasks()
+    }, [])
 
     const createTask = useCallback(
         (taskData) => {
@@ -62,20 +75,25 @@ export default function TaskProvider({ children }) {
         dispatch({ type: TASK_ACTIONS.CLEAR_TASKS })
     }, [dispatch])
 
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(taskItems))
-    }, [taskItems])
-
     const contextValue = useMemo(
         () => ({
             taskItems,
+            isLoading,
             createTask,
             updateTask,
             removeFromTask,
             clearTask,
             moveTask,
         }),
-        [taskItems, createTask, updateTask, removeFromTask, clearTask, moveTask]
+        [
+            taskItems,
+            isLoading,
+            createTask,
+            updateTask,
+            removeFromTask,
+            clearTask,
+            moveTask,
+        ]
     )
 
     return (
