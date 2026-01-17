@@ -1,51 +1,35 @@
-import { memo, useMemo, useState } from 'react'
+import { memo } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import clsx from 'clsx'
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
+
 import TaskList from '../TaskList/TaskList'
 import ColumnHeader from './ColumnHeader'
 import ColumnContainer from './ColumnContainer'
-import ColumnForm from '../board/ColumnForm'
-import { useTask } from '../../hooks/useTask'
+import ColumnForm from './ColumnForm'
 import ConfirmDialog from '../dialog/ConfirmDialog'
-import useAlert from '../../hooks/useAlert'
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-function Column({ title, tasks, status, color, onEdit }) {
+import { useColumn } from '../../hooks/useColumn'
+
+function TaskColumn({ title, tasks, status, color, onEdit }) {
     const { setNodeRef, isOver } = useDroppable({
         id: status,
     })
 
-    const { updateColumn, deleteColumn } = useTask()
-    const { setAlert } = useAlert()
-
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false)
-    const [isEditing, setIsEditing] = useState(false)
-
-    const [isSearchOpen, setIsSearchOpen] = useState(false)
-    const [searchQuery, setSearchQuery] = useState('')
-
-    const filteredTasks = useMemo(() => {
-        if (!searchQuery.trim()) return tasks
-        return tasks.filter((task) =>
-            task.title.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-    }, [tasks, searchQuery])
-
-    const handleSaveEdit = (newTitle, newColor) => {
-        updateColumn(status, newTitle, newColor)
-        setIsEditing(false)
-        setAlert(`Updated column "${newTitle}" successfully`, 'success')
-    }
-
-    const handleDeleteClick = () => {
-        setIsConfirmOpen(true)
-    }
-
-    const handleConfirmDelete = () => {
-        deleteColumn(status)
-        setIsConfirmOpen(false)
-        setAlert(`Column "${title}" deleted successfully`, 'info')
-    }
+    const {
+        isEditing,
+        setIsEditing,
+        isConfirmOpen,
+        setIsConfirmOpen,
+        isSearchOpen,
+        setIsSearchOpen,
+        searchQuery,
+        setSearchQuery,
+        filteredTasks,
+        handleSaveEdit,
+        handleDeleteClick,
+        handleConfirmDelete,
+    } = useColumn(tasks, title, status)
 
     return (
         <ColumnContainer ref={setNodeRef}>
@@ -135,4 +119,4 @@ function Column({ title, tasks, status, color, onEdit }) {
     )
 }
 
-export default memo(Column)
+export default memo(TaskColumn)

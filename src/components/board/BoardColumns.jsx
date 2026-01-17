@@ -1,11 +1,12 @@
 import { memo, useState } from 'react'
-import Column from '../column/Column'
+import { PlusIcon } from '@heroicons/react/24/outline'
 import BoardLayout from './BoardLayout'
 import Button from '../ui/Button'
-import { PlusIcon } from '@heroicons/react/24/outline'
-import { useTask } from '../../hooks/useTask'
-import ColumnForm from './ColumnForm'
 import useAlert from '../../hooks/useAlert'
+import { useTask } from '../../hooks/useTask'
+
+import TaskColumn from '../column/TaskColumn'
+import ColumnForm from '../column/ColumnForm'
 
 const BoardColumns = ({ tasks, columns, onEdit }) => {
     const { addColumn } = useTask()
@@ -21,7 +22,7 @@ const BoardColumns = ({ tasks, columns, onEdit }) => {
     return (
         <BoardLayout>
             {columns.map((col) => (
-                <Column
+                <TaskColumn
                     key={col.status}
                     title={col.title}
                     status={col.status}

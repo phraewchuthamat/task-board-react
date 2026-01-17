@@ -11,7 +11,7 @@ function ColumnHeader({
     onToggleSearch,
 }) {
     return (
-        <div className="p-2 pb-2 border-b border-app-border">
+        <div className="p-2 pb-2 mb-2 border-b border-app-border">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <span className={clsx('w-3 h-3 rounded-full', color)} />
