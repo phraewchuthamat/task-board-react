@@ -20,7 +20,7 @@ export const STATUS_COLORS = {
     done: 'bg-emerald-500',
 }
 
-const DEFAULT_COLUMNS = [
+export const DEFAULT_COLUMNS = [
     { title: 'Planer', status: 'plan', color: 'bg-yellow-500' },
     { title: 'To Do', status: 'todo', color: 'bg-blue-500' },
     { title: 'Doing', status: 'doing', color: 'bg-yellow-500' },
