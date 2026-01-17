@@ -5,14 +5,17 @@ import Button from '../ui/Button'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { useTask } from '../../hooks/useTask'
 import ColumnForm from './ColumnForm'
+import useAlert from '../../hooks/useAlert'
 
 const BoardColumns = ({ tasks, columns, onEdit }) => {
     const { addColumn } = useTask()
+    const { setAlert } = useAlert()
     const [isCreating, setIsCreating] = useState(false)
 
     const handleSaveColumn = (title, color) => {
         addColumn(title, color)
         setIsCreating(false)
+        setAlert('Create new column successfully!', 'success')
     }
 
     return (
