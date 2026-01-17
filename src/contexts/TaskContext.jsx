@@ -87,15 +87,34 @@ export default function TaskProvider({ children }) {
         dispatch({ type: TASK_ACTIONS.CLEAR_TASK })
     }, [dispatch])
 
-    const addColumn = useCallback((title) => {
+    const addColumn = useCallback((title, color = 'bg-gray-500') => {
         if (!title || !title.trim()) return
 
         const newStatus = title.trim().toLowerCase().replace(/\s+/g, '-')
 
         setColumns((prev) => {
             if (prev.some((col) => col.status === newStatus)) return prev
-            return [...prev, { title: title.trim(), status: newStatus }]
+            return [...prev, { title: title.trim(), status: newStatus, color }]
         })
+    }, [])
+
+    const updateColumn = useCallback((status, newTitle, newColor) => {
+        setColumns((prev) =>
+            prev.map((col) => {
+                if (col.staus === status) {
+                    return {
+                        ...col,
+                        title: newTitle,
+                        color: newColor || col.color,
+                    }
+                }
+                return col
+            })
+        )
+    }, [])
+
+    const deleteColumn = useCallback((status) => {
+        setColumns((prev) => prev.filter((col) => col.status !== status))
     }, [])
 
     useEffect(() => {
@@ -113,6 +132,8 @@ export default function TaskProvider({ children }) {
             moveTask,
             columns,
             addColumn,
+            updateColumn,
+            deleteColumn,
         }),
         [
             taskItems,
@@ -124,6 +145,8 @@ export default function TaskProvider({ children }) {
             moveTask,
             columns,
             addColumn,
+            updateColumn,
+            deleteColumn,
         ]
     )
 

@@ -20,10 +20,11 @@ export const STATUS_COLORS = {
     done: 'bg-emerald-500',
 }
 
-export const DEFAULT_COLUMNS = [
-    { title: 'To Do', status: 'todo' },
-    { title: 'Doing', status: 'doing' },
-    { title: 'Done', status: 'done' },
+const DEFAULT_COLUMNS = [
+    { title: 'Planer', status: 'plan', color: 'bg-yellow-500' },
+    { title: 'To Do', status: 'todo', color: 'bg-blue-500' },
+    { title: 'Doing', status: 'doing', color: 'bg-yellow-500' },
+    { title: 'Done', status: 'done', color: 'bg-emerald-500' },
 ]
 
 export const PRIORITY_OPTIONS = [
@@ -31,3 +32,14 @@ export const PRIORITY_OPTIONS = [
     { value: 'medium', label: 'Medium' },
     { value: 'high', label: 'High' },
 ]
+
+export const COLUMN_COLORS = {
+    gray: 'bg-gray-500',
+    blue: 'bg-blue-500',
+    yellow: 'bg-yellow-500',
+    emerald: 'bg-emerald-500',
+    red: 'bg-red-500',
+    purple: 'bg-purple-500',
+    pink: 'bg-pink-500',
+    indigo: 'bg-indigo-500',
+}
