@@ -1,6 +1,14 @@
 export const taskDefault = [
     {
         id: '1',
+        title: 'Design Wireframe Figma',
+        description: 'ออกแบบ mockup figma และออกแบบ Resposive ทุก device',
+        priority: 'high',
+        createdAt: new Date().toISOString(),
+        status: 'plan',
+    },
+    {
+        id: '2',
         title: 'Design UI',
         description: 'ออกแบบหน้าจอ Dashboard ใหม่ทั้งหมด',
         priority: 'high',
@@ -8,7 +16,7 @@ export const taskDefault = [
         status: 'todo',
     },
     {
-        id: '2',
+        id: '3',
         title: 'Integration API',
         description: 'เชื่อมต่อ API กับ Backend',
         priority: 'medium',
@@ -16,7 +24,7 @@ export const taskDefault = [
         status: 'doing',
     },
     {
-        id: '3',
+        id: '4',
         title: 'Fix Bugs',
         description: 'แก้บั๊กหน้า Login เข้าสู่ระบบไม่ได้',
         priority: 'low',
