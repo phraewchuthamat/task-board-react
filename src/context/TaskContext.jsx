@@ -1,4 +1,10 @@
-import { createContext, useEffect, useReducer, useCallback } from 'react'
+import {
+    createContext,
+    useEffect,
+    useReducer,
+    useCallback,
+    useMemo,
+} from 'react'
 import { taskReducer, TASK_ACTIONS } from '../reducer/taskReducer'
 import { taskDefault } from '../utils/storage'
 
@@ -60,17 +66,20 @@ export default function TaskProvider({ children }) {
         localStorage.setItem('todos', JSON.stringify(taskItems))
     }, [taskItems])
 
+    const contextValue = useMemo(
+        () => ({
+            taskItems,
+            createTask,
+            updateTask,
+            removeFromTask,
+            clearTask,
+            moveTask,
+        }),
+        [taskItems, createTask, updateTask, removeFromTask, clearTask, moveTask]
+    )
+
     return (
-        <TaskContext.Provider
-            value={{
-                taskItems,
-                createTask,
-                updateTask,
-                removeFromTask,
-                clearTask,
-                moveTask,
-            }}
-        >
+        <TaskContext.Provider value={contextValue}>
             {children}
         </TaskContext.Provider>
     )
