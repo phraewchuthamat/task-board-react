@@ -8,12 +8,18 @@ import {
 } from 'react'
 import { taskReducer, TASK_ACTIONS } from '../reducer/taskReducer'
 import { taskDefault } from '../utils/storage'
+import { DEFAULT_COLUMNS } from '../utils/formatters'
 
 const TaskContext = createContext()
 
 export default function TaskProvider({ children }) {
     const [taskItems, dispatch] = useReducer(taskReducer, [])
     const [isLoading, setIsLoading] = useState(true)
+
+    const [columns, setColumns] = useState(() => {
+        const savedCols = localStorage.getItem('board_columns')
+        return savedCols ? JSON.parse(savedCols) : DEFAULT_COLUMNS
+    })
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -30,6 +36,12 @@ export default function TaskProvider({ children }) {
 
         fetchTasks()
     }, [])
+
+    useEffect(() => {
+        if (!isLoading) {
+            localStorage.setItem('todos', JSON.stringify(taskItems))
+        }
+    }, [taskItems, isLoading])
 
     const createTask = useCallback(
         (taskData) => {
@@ -72,8 +84,23 @@ export default function TaskProvider({ children }) {
     )
 
     const clearTask = useCallback(() => {
-        dispatch({ type: TASK_ACTIONS.CLEAR_TASKS })
+        dispatch({ type: TASK_ACTIONS.CLEAR_TASK })
     }, [dispatch])
+
+    const addColumn = useCallback((title) => {
+        if (!title || !title.trim()) return
+
+        const newStatus = title.trim().toLowerCase().replace(/\s+/g, '-')
+
+        setColumns((prev) => {
+            if (prev.some((col) => col.status === newStatus)) return prev
+            return [...prev, { title: title.trim(), status: newStatus }]
+        })
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('board_columns', JSON.stringify(columns))
+    }, [columns])
 
     const contextValue = useMemo(
         () => ({
@@ -84,6 +111,8 @@ export default function TaskProvider({ children }) {
             removeFromTask,
             clearTask,
             moveTask,
+            columns,
+            addColumn,
         }),
         [
             taskItems,
@@ -93,6 +122,8 @@ export default function TaskProvider({ children }) {
             removeFromTask,
             clearTask,
             moveTask,
+            columns,
+            addColumn,
         ]
     )
 

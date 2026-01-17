@@ -12,13 +12,20 @@ function Column({ title, tasks, status, onEdit }) {
 
     return (
         <ColumnContainer ref={setNodeRef}>
-            <ColumnHeader title={title} status={status} count={tasks.length} />
+            {/* Header */}
+            <div className="flex-none">
+                <ColumnHeader
+                    title={title}
+                    status={status}
+                    count={tasks.length}
+                />
+            </div>
 
             <div
-                ref={setNodeRef}
                 className={clsx(
-                    'flex-1 p-4 flex flex-col gap-3 select-none transition-shadow',
-                    isOver && 'ring-2 ring-blue-400 ring-inset rounded-b-xl'
+                    'flex-1 overflow-y-auto min-h-0 p-4 flex flex-col gap-3 transition-colors',
+                    'scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600',
+                    isOver && 'bg-app-primary/5'
                 )}
             >
                 <TaskList tasks={tasks} onEdit={onEdit} />

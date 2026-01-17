@@ -10,10 +10,11 @@ import TaskCard from '../TaskCard/TaskCard'
 import TaskModal from '../TaskModal/TaskModal'
 
 export default function Board() {
-    const { taskItems, moveTask, isLoading } = useTask()
+    const { taskItems, columns, moveTask, isLoading } = useTask()
 
     const { activeTask, onDragStart, onDragEnd, onDragCancel } = useBoardDrag(
         taskItems,
+        columns,
         moveTask
     )
 
@@ -30,7 +31,11 @@ export default function Board() {
         >
             <BoardHeader onNew={modal.openNewTask} />
 
-            <BoardColumns tasks={taskItems} onEdit={modal.openEditTask} />
+            <BoardColumns
+                tasks={taskItems}
+                columns={columns}
+                onEdit={modal.openEditTask}
+            />
 
             <TaskModal
                 isOpen={modal.isOpen}

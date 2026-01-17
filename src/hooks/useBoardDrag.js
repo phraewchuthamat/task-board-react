@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export function useBoardDrag(taskItems, moveTask) {
+export function useBoardDrag(taskItems, columns, moveTask) {
     const [activeTask, setActiveTask] = useState(null)
 
     const onDragStart = ({ active }) => {
@@ -12,17 +12,27 @@ export function useBoardDrag(taskItems, moveTask) {
         setActiveTask(null)
         if (!over) return
 
-        const activeTask = taskItems.find((t) => t.id === active.id)
-        if (!activeTask) return
-
+        const activeId = active.id
         const overId = over.id
 
-        const nextStatus = ['todo', 'doing', 'done'].includes(overId)
-            ? overId
-            : taskItems.find((t) => t.id === overId)?.status
+        if (activeId === overId) return
+
+        const activeTask = taskItems.find((t) => t.id === activeId)
+        if (!activeTask) return
+
+        const isOverColumn = columns.some((col) => col.status === overId)
+
+        let nextStatus = ''
+
+        if (isOverColumn) {
+            nextStatus = overId
+        } else {
+            const overTask = taskItems.find((t) => t.id === overId)
+            nextStatus = overTask?.status
+        }
 
         if (nextStatus && activeTask.status !== nextStatus) {
-            moveTask(active.id, nextStatus)
+            moveTask(activeId, nextStatus)
         }
     }
 

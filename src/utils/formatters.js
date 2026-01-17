@@ -20,7 +20,7 @@ export const STATUS_COLORS = {
     done: 'bg-emerald-500',
 }
 
-export const BOARD_COLUMNS = [
+export const DEFAULT_COLUMNS = [
     { title: 'To Do', status: 'todo' },
     { title: 'Doing', status: 'doing' },
     { title: 'Done', status: 'done' },
