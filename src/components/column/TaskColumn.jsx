@@ -11,11 +11,15 @@ import ConfirmDialog from '../dialog/ConfirmDialog'
 
 import { useColumnForm } from '../../hooks/column/useColumnForm'
 
-function TaskColumn({ title, tasks, status, color, onEdit }) {
+// 1. รับ id เข้ามาใน props
+function TaskColumn({ id, title, tasks, status, color, onEdit }) {
+    // dnd-kit ยังคงใช้ status เป็น id ได้ ถ้า logic การ drag ยังอิง status
+    // หรือจะเปลี่ยนเป็น id ก็ได้ แต่ต้องแก้ฝั่ง DragDropContext ด้วย
     const { setNodeRef, isOver } = useDroppable({
         id: status,
     })
 
+    // 2. ส่ง id ไปให้ hook
     const {
         isEditing,
         setIsEditing,
@@ -25,11 +29,11 @@ function TaskColumn({ title, tasks, status, color, onEdit }) {
         setIsSearchOpen,
         searchQuery,
         setSearchQuery,
-        filteredTasks,
+        filteredTasks, // เราจะใช้ตัวนี้แทน tasks เดิม
         handleSaveEdit,
         handleDeleteClick,
         handleConfirmDelete,
-    } = useColumnForm(tasks, title, status)
+    } = useColumnForm(tasks, id, title)
 
     return (
         <ColumnContainer ref={setNodeRef}>
@@ -92,7 +96,8 @@ function TaskColumn({ title, tasks, status, color, onEdit }) {
                         isOver && 'bg-app-primary/5'
                     )}
                 >
-                    <TaskList tasks={tasks} onEdit={onEdit} />
+                    {/* 3. แก้ไขตรงนี้: ใช้ filteredTasks แทน tasks */}
+                    <TaskList tasks={filteredTasks} onEdit={onEdit} />
 
                     {tasks.length > 0 && filteredTasks.length === 0 && (
                         <div className="text-center p-4 text-sm text-gray-500">
@@ -111,7 +116,7 @@ function TaskColumn({ title, tasks, status, color, onEdit }) {
             <ConfirmDialog
                 isOpen={isConfirmOpen}
                 onClose={() => setIsConfirmOpen(false)}
-                onConfirm={handleConfirmDelete}
+                onConfirm={handleConfirmDelete} // ไม่ต้องส่ง id แล้ว เพราะ hook รู้จัก id
                 title="Confirm deletion"
                 message={`Are you sure you want to delete column "${title}" and all its tasks?`}
             />

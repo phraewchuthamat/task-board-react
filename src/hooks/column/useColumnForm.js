@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react'
-
 import useAlert from '../alert/useAlert'
 import { useColumns } from './useColumns'
 
-export const useColumnForm = (tasks, title, status) => {
+// 1. รับ id เพิ่มเข้ามาใน arguments
+export const useColumnForm = (tasks, id, title) => {
     const { updateColumn, deleteColumn } = useColumns()
     const { setAlert } = useAlert()
 
@@ -19,8 +19,9 @@ export const useColumnForm = (tasks, title, status) => {
         )
     }, [tasks, searchQuery])
 
+    // 2. ส่ง id ไป update แทน status
     const handleSaveEdit = (newTitle, newColor) => {
-        updateColumn(status, newTitle, newColor)
+        updateColumn(id, { title: newTitle, color: newColor }) // ปรับรูปแบบ object ตาม ColumnContext
         setIsEditing(false)
         setAlert(`Updated column "${newTitle}" successfully`, 'success')
     }
@@ -29,8 +30,9 @@ export const useColumnForm = (tasks, title, status) => {
         setIsConfirmOpen(true)
     }
 
+    // 3. ใช้ id ที่รับมาจาก hook โดยตรง (ไม่ต้องรับผ่าน parameter ซ้ำ)
     const handleConfirmDelete = () => {
-        deleteColumn(status)
+        deleteColumn(id)
         setIsConfirmOpen(false)
         setAlert(`Column "${title}" deleted successfully`, 'success')
     }

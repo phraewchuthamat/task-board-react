@@ -40,7 +40,7 @@ export default function ColumnProvider({ children }) {
 
         // สร้าง Object ของ Column ใหม่ที่นี่ (Business Logic)
         const newColumn = {
-            id: crypto.randomUUID(), // สร้าง ID แบบ Unique (หรือใช้ Date.now().toString())
+            id: Date.now().toString(), // สร้าง ID แบบ Unique (หรือใช้ Date.now().toString())
             title: title.trim(),
             status: formattedStatus,
             color: color || 'bg-gray-500',
