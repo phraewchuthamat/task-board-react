@@ -1,49 +1,66 @@
+import { createPortal } from 'react-dom'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import Button from '../ui/Button'
 
 function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }) {
     if (!isOpen) return null
+    // พารามิเตอร์ตัวที่ 2 คือ document.body เพื่อให้ Dialog ไปโผล่ที่ชั้นนอกสุดของ HTML
+    return createPortal(
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <div
+                className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
+                onClick={onClose}
+            />
 
-    return (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+            {/* Panel */}
             <div
                 onPointerDown={(e) => e.stopPropagation()}
-                className="bg-app-surface rounded-xl shadow-2xl w-full max-w-md p-6 transform transition-all duration-300 scale-100 opacity-100"
+                className="relative bg-app-surface w-full max-w-md rounded-xl shadow-2xl overflow-hidden transform transition-all scale-100 opacity-100 border border-app-border"
             >
-                <div className="flex justify-between items-start mb-4">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-full bg-rose-500/10 text-rose-500">
-                            <ExclamationTriangleIcon className="w-6 h-6" />
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 p-1 rounded-full text-app-subtle hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                    <XMarkIcon className="w-5 h-5" />
+                </button>
+
+                <div className="p-6">
+                    <div className="flex gap-4">
+                        <div className="flex-shrink-0">
+                            <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                                <ExclamationTriangleIcon className="w-6 h-6 text-red-600 dark:text-red-400" />
+                            </div>
                         </div>
-                        <h3 className="text-lg font-semibold text-app-text">
-                            {title}
-                        </h3>
+
+                        <div className="flex-1 pt-1">
+                            <h3 className="text-lg font-bold text-app-text leading-6">
+                                {title}
+                            </h3>
+                            <div className="mt-2">
+                                <p className="text-sm text-app-subtle leading-relaxed">
+                                    {message}
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <button
-                        onClick={onClose}
-                        className="p-1 rounded-lg text-app-subtle hover:text-app-text hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                    >
-                        <XMarkIcon className="w-5 h-5" />
-                    </button>
                 </div>
 
-                <p className="text-sm text-app-subtle mb-6">{message}</p>
-
-                <div className="flex justify-end gap-3">
-                    <button
-                        onClick={onClose}
-                        className="px-4 py-2 text-sm font-medium rounded-lg bg-gray-200 dark:bg-gray-700 text-app-text hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                    >
+                <div className="bg-gray-50 dark:bg-gray-800/50 px-6 py-4 flex justify-end gap-3 border-t border-app-border">
+                    <Button variant="ghost" onClick={onClose}>
                         Cancel
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                        variant="danger"
                         onClick={onConfirm}
-                        className="px-4 py-2 text-sm font-medium rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition-colors shadow-md"
+                        className="!bg-rose-600 hover:!bg-rose-700 text-white border-transparent"
                     >
                         Confirm
-                    </button>
+                    </Button>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     )
 }
 

@@ -1,5 +1,5 @@
 import AlertPopup from './components/AlertPopup/AlertPopup'
-import Board from './components/board/Board'
+import KanbanBoard from './components/board/KanbanBoard'
 import Navbar from './components/Navbar'
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
             <AlertPopup />
 
             <main className="flex-1 w-full relative overflow-hidden">
-                <Board />
+                <KanbanBoard />
             </main>
         </div>
     )

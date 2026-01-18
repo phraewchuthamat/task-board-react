@@ -14,7 +14,7 @@ const TaskList = memo(({ tasks, onEdit }) => {
     const handleDeleteTask = useCallback(
         (taskId) => {
             removeFromTask(taskId)
-            setAlert('ลบข้อมูลสำเร็จ!', 'success')
+            setAlert(`Deleted task successfully!`, 'success')
         },
         [removeFromTask, setAlert]
     )

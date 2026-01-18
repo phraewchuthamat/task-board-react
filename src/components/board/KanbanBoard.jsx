@@ -11,7 +11,7 @@ import BoardColumns from './BoardColumns'
 import TaskCard from '../TaskCard/TaskCard'
 import TaskModal from '../TaskModal/TaskModal'
 
-export default function Board() {
+export default function KanbanBoard() {
     const { taskItems, moveTask, isLoading } = useTasks()
     const { columns } = useColumns()
 
