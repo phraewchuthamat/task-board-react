@@ -19,7 +19,7 @@ export default {
                     subtle: 'var(--color-subtle-text)',
 
                     // Button & Actions
-                    primary: 'var(--color-success)',
+                    primary: 'var(--color-accent)',
                     'primary-hover': 'var(--color-accent-hover)',
                     'primary-fg': 'var(--color-accent-text)',
 

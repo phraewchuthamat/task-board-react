@@ -67,7 +67,7 @@
 
     --color-app-primary: var(--color-accent);
     --color-app-primary-hover: var(--color-accent-hover);
-    --color-app-primary-foreground: var(--color-accent-text);
+    --color-app-primary-fg: var(--color-accent-text);
 
     --color-app-danger: var(--color-danger);
     --color-app-danger-hover: var(--color-danger-hover);
