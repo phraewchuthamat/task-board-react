@@ -12,6 +12,7 @@ import TaskModal from '../TaskModal/TaskModal'
 
 export default function KanbanBoard() {
     const [searchQuery, setSearchQuery] = useState('')
+    const [filterPriority, setFilterPriority] = useState('')
     const { taskItems, moveTask, isLoading } = useTasks()
     const { columns } = useColumns()
 
@@ -24,15 +25,23 @@ export default function KanbanBoard() {
     const modal = useTaskModal()
 
     const filteredTasks = useMemo(() => {
-        if (!searchQuery.trim()) return taskItems
+        return taskItems.filter((task) => {
+            // Check 1: Search Text
+            const matchesSearch =
+                !searchQuery.trim() ||
+                task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                task.description
+                    ?.toLowerCase()
+                    .includes(searchQuery.toLowerCase())
 
-        const lowerQuery = searchQuery.toLowerCase()
-        return taskItems.filter(
-            (task) =>
-                task.title.toLowerCase().includes(lowerQuery) ||
-                task.description?.toLowerCase().includes(lowerQuery)
-        )
-    }, [taskItems, searchQuery])
+            // Check 2: Priority Filter (เพิ่มส่วนนี้)
+            const matchesPriority =
+                !filterPriority || task.priority === filterPriority
+
+            // ต้องผ่านทั้งคู่ (AND Condition)
+            return matchesSearch && matchesPriority
+        })
+    }, [taskItems, searchQuery, filterPriority])
 
     if (isLoading) return <LoadingScreen text="Loading board..." />
 
@@ -47,6 +56,8 @@ export default function KanbanBoard() {
                 onNew={modal.openNewTask}
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
+                filterPriority={filterPriority}
+                setFilterPriority={setFilterPriority}
             />
 
             <BoardColumns tasks={filteredTasks} onEdit={modal.openEditTask} />

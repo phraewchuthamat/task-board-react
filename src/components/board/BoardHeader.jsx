@@ -4,7 +4,13 @@ import Button from '../ui/Button'
 import RefreshButton from '../ui/RefreshButton'
 import SearchBar from '../ui/SearchBar'
 
-function BoardHeader({ onNew, searchQuery, setSearchQuery }) {
+function BoardHeader({
+    onNew,
+    searchQuery,
+    setSearchQuery,
+    filterPriority,
+    setFilterPriority,
+}) {
     return (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-4">
             <div>
@@ -20,8 +26,10 @@ function BoardHeader({ onNew, searchQuery, setSearchQuery }) {
                 <SearchBar
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    filterValue={filterPriority}
+                    onFilterChange={(e) => setFilterPriority(e.target.value)}
                     placeholder="Search tasks..."
-                    className="w-full sm:w-64"
+                    className="w-full sm:w-auto"
                 />
 
                 <div className="h-8 w-[1px] bg-app-border mx-1 hidden sm:block"></div>

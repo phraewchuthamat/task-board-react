@@ -1,28 +1,64 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import Input from './Input'
 
 const SearchBar = ({
     value,
     onChange,
+    filterValue,
+    onFilterChange,
     placeholder = 'Search...',
     className,
     ...props
 }) => {
     return (
-        <div className={clsx('relative group', className)}>
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-subtle group-focus-within:text-app-primary transition-colors z-10 pointer-events-none" />
-            <Input
-                type="text"
-                name="search"
-                value={value}
-                onChange={onChange}
-                placeholder={placeholder}
-                className="pl-10"
-                containerClassName="w-full"
-                autoFocus
-                {...props}
-            />
+        <div className={clsx('flex items-center gap-2', className)}>
+            <div className="relative group flex-1">
+                <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-subtle group-focus-within:text-app-primary transition-colors z-10 pointer-events-none" />
+                <Input
+                    type="text"
+                    name="search"
+                    value={value}
+                    onChange={onChange}
+                    placeholder={placeholder}
+                    className="pl-10"
+                    containerClassName="w-full"
+                    autoFocus
+                    {...props}
+                />
+            </div>
+
+            <div className="relative shrink-0">
+                <FunnelIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-subtle pointer-events-none" />
+                <select
+                    value={filterValue}
+                    onChange={onFilterChange}
+                    className={clsx(
+                        'pl-9 pr-8 py-2 rounded-lg border text-sm transition-all appearance-none cursor-pointer',
+                        'bg-app-surface text-app-text',
+                        'focus:outline-none focus:ring-2',
+
+                        filterValue
+                            ? 'border-app-primary ring-1 ring-app-primary/20'
+                            : 'border-app-border hover:border-gray-400 dark:hover:border-gray-500'
+                    )}
+                >
+                    <option value="">All Priorities</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-app-subtle">
+                    <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                        <path
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clipRule="evenodd"
+                            fillRule="evenodd"
+                        ></path>
+                    </svg>
+                </div>
+            </div>
         </div>
     )
 }
