@@ -17,25 +17,28 @@ export default function TaskForm({ form, onSubmit, isEditMode, onCancel }) {
                 label="Title"
                 name="title"
                 placeholder="Enter task title..."
-                register={register}
-                errors={errors}
-                validation={{ required: 'กรุณากรอกหัวข้อ' }}
+                {...register('title', {
+                    required: 'Task title is required',
+                })}
+                errors={errors.title}
             />
 
             <Textarea
                 label="Description"
                 name="description"
-                placeholder="What needs to be done?"
-                register={register}
-                errors={errors}
-                validation={{ required: 'กรุณากรอกรายละเอียด' }}
+                placeholder="Enter details..."
+                {...register('description', {
+                    required: 'Task description is required',
+                })}
+                error={errors.description}
             />
 
             <Select
                 label="Priority"
                 name="priority"
-                register={register}
+                {...register('priority')}
                 options={PRIORITY_OPTIONS}
+                error={errors.priority}
             />
 
             <div className="mt-8 flex justify-end gap-3">

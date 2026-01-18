@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Button from '../ui/Button'
 import { COLUMN_COLORS } from '../../utils/formatters'
 import { CheckIcon } from '@heroicons/react/24/outline'
+import Input from '../ui/Input'
 
 export default function ColumnForm({ onSave, onCancel, initialData }) {
     const [title, setTitle] = useState(initialData?.title || '')
@@ -26,17 +27,14 @@ export default function ColumnForm({ onSave, onCancel, initialData }) {
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
-                <input
-                    type="text"
+                <Input
                     value={title}
                     onChange={(e) => {
                         setTitle(e.target.value)
                         setError('')
                     }}
                     placeholder="Enter column title..."
-                    className={`w-full px-3 py-2 rounded-lg bg-app-surface border ${
-                        error ? 'border-red-500' : 'border-app-border'
-                    } focus:outline-none focus:ring-2 focus:ring-app-primary text-sm transition-all`}
+                    error={error}
                     autoFocus
                 />
                 {error && (
