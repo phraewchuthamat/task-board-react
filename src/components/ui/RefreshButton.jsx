@@ -1,9 +1,10 @@
-import { useTask } from '../../hooks/useTask'
+import { useTasks } from '../../hooks/task/useTasks'
+
 import Button from './Button'
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
 
 const RefreshButton = () => {
-    const { refetchTask, isLoading } = useTask()
+    const { refetchTask, isLoading } = useTasks()
 
     return (
         <Button

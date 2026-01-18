@@ -9,7 +9,7 @@ import ColumnContainer from './ColumnContainer'
 import ColumnForm from './ColumnForm'
 import ConfirmDialog from '../dialog/ConfirmDialog'
 
-import { useColumn } from '../../hooks/useColumn'
+import { useColumnForm } from '../../hooks/column/useColumnForm'
 
 function TaskColumn({ title, tasks, status, color, onEdit }) {
     const { setNodeRef, isOver } = useDroppable({
@@ -29,7 +29,7 @@ function TaskColumn({ title, tasks, status, color, onEdit }) {
         handleSaveEdit,
         handleDeleteClick,
         handleConfirmDelete,
-    } = useColumn(tasks, title, status)
+    } = useColumnForm(tasks, title, status)
 
     return (
         <ColumnContainer ref={setNodeRef}>

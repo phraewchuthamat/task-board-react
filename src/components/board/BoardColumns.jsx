@@ -2,14 +2,14 @@ import { memo, useState } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import BoardLayout from './BoardLayout'
 import Button from '../ui/Button'
-import useAlert from '../../hooks/useAlert'
-import { useTask } from '../../hooks/useTask'
 
 import TaskColumn from '../column/TaskColumn'
 import ColumnForm from '../column/ColumnForm'
+import useAlert from '../../hooks/alert/useAlert'
+import { useColumns } from '../../hooks/column/useColumns'
 
 const BoardColumns = ({ tasks, columns, onEdit }) => {
-    const { addColumn } = useTask()
+    const { addColumn } = useColumns()
     const { setAlert } = useAlert()
     const [isCreating, setIsCreating] = useState(false)
 

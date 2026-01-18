@@ -1,7 +1,9 @@
 import { DndContext, DragOverlay, closestCorners } from '@dnd-kit/core'
-import { useTask } from '../../hooks/useTask'
+
 import { useBoardDrag } from '../../hooks/useBoardDrag'
-import { useTaskModal } from '../../hooks/useTaskModal'
+import { useTaskModal } from '../../hooks/task/useTaskModal'
+import { useTasks } from '../../hooks/task/useTasks'
+import { useColumns } from '../../hooks/column/useColumns'
 
 import LoadingScreen from '../ui/LoadingScreen'
 import BoardHeader from './BoardHeader'
@@ -10,7 +12,8 @@ import TaskCard from '../TaskCard/TaskCard'
 import TaskModal from '../TaskModal/TaskModal'
 
 export default function Board() {
-    const { taskItems, columns, moveTask, isLoading } = useTask()
+    const { taskItems, moveTask, isLoading } = useTasks()
+    const { columns } = useColumns()
 
     const { activeTask, onDragStart, onDragEnd, onDragCancel } = useBoardDrag(
         taskItems,

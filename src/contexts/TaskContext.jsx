@@ -8,27 +8,12 @@ import {
 } from 'react'
 import { taskReducer, TASK_ACTIONS } from '../reducer/taskReducer'
 import { taskDefault } from '../utils/storage'
-import { DEFAULT_COLUMNS } from '../utils/formatters'
 
 const TaskContext = createContext()
 
 export default function TaskProvider({ children }) {
     const [taskItems, dispatch] = useReducer(taskReducer, [])
     const [isLoading, setIsLoading] = useState(true)
-
-    const [columns, setColumns] = useState(() => {
-        const savedCols = localStorage.getItem('board_columns')
-
-        if (savedCols) {
-            const parsed = JSON.parse(savedCols)
-            return parsed.map((col) => ({
-                ...col,
-                color: col.color || 'bg-gray-500',
-            }))
-        }
-
-        return DEFAULT_COLUMNS
-    })
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -49,12 +34,6 @@ export default function TaskProvider({ children }) {
 
         fetchTasks()
     }, [])
-
-    useEffect(() => {
-        if (!isLoading) {
-            localStorage.setItem('todos', JSON.stringify(taskItems))
-        }
-    }, [taskItems, isLoading])
 
     const createTask = useCallback(
         (taskData) => {
@@ -120,36 +99,6 @@ export default function TaskProvider({ children }) {
         refetchTask()
     }, [refetchTask])
 
-    const addColumn = useCallback((title, color) => {
-        if (!title || !title.trim()) return
-
-        const newStatus = title.trim().toLowerCase().replace(/\s+/g, '-')
-
-        setColumns((prev) => {
-            if (prev.some((col) => col.status === newStatus)) return prev
-            return [...prev, { title: title.trim(), status: newStatus, color }]
-        })
-    }, [])
-
-    const updateColumn = useCallback((status, newTitle, newColor) => {
-        setColumns((prev) =>
-            prev.map((col) => {
-                if (col.status === status) {
-                    return {
-                        ...col,
-                        title: newTitle,
-                        color: newColor || col.color,
-                    }
-                }
-                return col
-            })
-        )
-    }, [])
-
-    const deleteColumn = useCallback((status) => {
-        setColumns((prev) => prev.filter((col) => col.status !== status))
-    }, [])
-
     useEffect(() => {
         if (!isLoading) {
             localStorage.setItem('todos', JSON.stringify(taskItems))
@@ -166,10 +115,6 @@ export default function TaskProvider({ children }) {
             clearTask,
             refetchTask,
             moveTask,
-            columns,
-            addColumn,
-            updateColumn,
-            deleteColumn,
         }),
         [
             taskItems,
@@ -180,10 +125,6 @@ export default function TaskProvider({ children }) {
             clearTask,
             refetchTask,
             moveTask,
-            columns,
-            addColumn,
-            updateColumn,
-            deleteColumn,
         ]
     )
 

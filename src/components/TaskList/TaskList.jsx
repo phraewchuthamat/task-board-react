@@ -1,13 +1,14 @@
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { memo, useCallback, useMemo } from 'react'
-import { useTask } from '../../hooks/useTask'
-import useAlert from '../../hooks/useAlert'
+
+import useAlert from '../../hooks/alert/useAlert'
 import TaskCard from '../TaskCard/TaskCard'
+import { useTasks } from '../../hooks/task/useTasks'
 
 const TaskList = memo(({ tasks, onEdit }) => {
     const taskIds = useMemo(() => tasks.map((t) => t.id), [tasks])
 
-    const { removeFromTask } = useTask()
+    const { removeFromTask } = useTasks()
     const { setAlert } = useAlert()
 
     const handleDeleteTask = useCallback(

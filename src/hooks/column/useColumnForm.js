@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react'
-import { useTask } from './useTask'
-import useAlert from './useAlert'
 
-export const useColumn = (tasks, title, status) => {
-    const { updateColumn, deleteColumn } = useTask()
+import useAlert from '../alert/useAlert'
+import { useColumns } from './useColumns'
+
+export const useColumnForm = (tasks, title, status) => {
+    const { updateColumn, deleteColumn } = useColumns()
     const { setAlert } = useAlert()
 
     const [isEditing, setIsEditing] = useState(false)
@@ -11,7 +12,6 @@ export const useColumn = (tasks, title, status) => {
     const [isSearchOpen, setIsSearchOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
 
-    // --- Logic: Filter Tasks ---
     const filteredTasks = useMemo(() => {
         if (!searchQuery.trim()) return tasks
         return tasks.filter((task) =>
@@ -19,7 +19,6 @@ export const useColumn = (tasks, title, status) => {
         )
     }, [tasks, searchQuery])
 
-    // --- Handlers ---
     const handleSaveEdit = (newTitle, newColor) => {
         updateColumn(status, newTitle, newColor)
         setIsEditing(false)
