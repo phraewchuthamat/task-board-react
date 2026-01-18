@@ -14,13 +14,6 @@ export const priorityColors = {
     low: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30',
 }
 
-export const DEFAULT_COLUMNS = [
-    { title: 'Planer', status: 'plan', color: 'bg-yellow-500' },
-    { title: 'To Do', status: 'todo', color: 'bg-blue-500' },
-    { title: 'Doing', status: 'doing', color: 'bg-yellow-500' },
-    { title: 'Done', status: 'done', color: 'bg-emerald-500' },
-]
-
 export const PRIORITY_OPTIONS = [
     { value: 'low', label: 'Low' },
     { value: 'medium', label: 'Medium' },

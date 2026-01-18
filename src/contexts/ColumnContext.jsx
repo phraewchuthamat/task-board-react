@@ -1,23 +1,34 @@
-import { useState, createContext, useCallback, useEffect, useMemo } from 'react'
-import { DEFAULT_COLUMNS } from '../utils/formatters'
+import {
+    createContext,
+    useCallback,
+    useEffect,
+    useMemo,
+    useReducer,
+} from 'react'
+import { columnReducer, COLUMN_ACTIONS } from '../reducer/columnReducer'
+import { DEFAULT_COLUMNS } from '../utils/storage'
 
 const ColumnContext = createContext()
 
-export default function ColumnProvider({ children }) {
-    const [columns, setColumns] = useState(() => {
-        const savedCols = localStorage.getItem('board_columns')
-
-        if (savedCols) {
-            const parsed = JSON.parse(savedCols)
-            return parsed.map((col) => ({
-                ...col,
-                color: col.color || 'bg-gray-500',
-            }))
+// ฟังก์ชันสำหรับโหลดข้อมูลเริ่มต้น (Lazy Initialization)
+const initColumns = () => {
+    const savedCols = localStorage.getItem('board_columns')
+    if (savedCols) {
+        try {
+            return JSON.parse(savedCols)
+        } catch (error) {
+            console.error('Error parsing columns from storage', error)
+            return DEFAULT_COLUMNS
         }
+    }
+    return DEFAULT_COLUMNS
+}
 
-        return DEFAULT_COLUMNS
-    })
+export default function ColumnProvider({ children }) {
+    // ใช้ useReducer โดยส่ง initColumns เป็น argument ตัวที่ 3
+    const [columns, dispatch] = useReducer(columnReducer, [], initColumns)
 
+    // Sync ลง LocalStorage ทุกครั้งที่ columns เปลี่ยนแปลง
     useEffect(() => {
         localStorage.setItem('board_columns', JSON.stringify(columns))
     }, [columns])
@@ -25,31 +36,34 @@ export default function ColumnProvider({ children }) {
     const addColumn = useCallback((title, color) => {
         if (!title || !title.trim()) return
 
-        const newStatus = title.trim().toLowerCase().replace(/\s+/g, '-')
+        const formattedStatus = title.trim().toLowerCase().replace(/\s+/g, '-')
 
-        setColumns((prev) => {
-            if (prev.some((col) => col.status === newStatus)) return prev
-            return [...prev, { title: title.trim(), status: newStatus, color }]
+        // สร้าง Object ของ Column ใหม่ที่นี่ (Business Logic)
+        const newColumn = {
+            id: crypto.randomUUID(), // สร้าง ID แบบ Unique (หรือใช้ Date.now().toString())
+            title: title.trim(),
+            status: formattedStatus,
+            color: color || 'bg-gray-500',
+        }
+
+        dispatch({
+            type: COLUMN_ACTIONS.CREATE_COLUMN,
+            payload: newColumn,
         })
     }, [])
 
-    const updateColumn = useCallback((status, newTitle, newColor) => {
-        setColumns((prev) =>
-            prev.map((col) => {
-                if (col.status === status) {
-                    return {
-                        ...col,
-                        title: newTitle,
-                        color: newColor || col.color,
-                    }
-                }
-                return col
-            })
-        )
+    const updateColumn = useCallback((id, updates) => {
+        dispatch({
+            type: COLUMN_ACTIONS.UPDATE_COLUMN,
+            payload: { id, ...updates },
+        })
     }, [])
 
-    const deleteColumn = useCallback((status) => {
-        setColumns((prev) => prev.filter((col) => col.status !== status))
+    const deleteColumn = useCallback((id) => {
+        dispatch({
+            type: COLUMN_ACTIONS.DELETE_COLUMN,
+            payload: id,
+        })
     }, [])
 
     const value = useMemo(

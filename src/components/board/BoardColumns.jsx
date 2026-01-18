@@ -8,8 +8,8 @@ import ColumnForm from '../column/ColumnForm'
 import useAlert from '../../hooks/alert/useAlert'
 import { useColumns } from '../../hooks/column/useColumns'
 
-const BoardColumns = ({ tasks, columns, onEdit }) => {
-    const { addColumn } = useColumns()
+const BoardColumns = ({ tasks, onEdit }) => {
+    const { columns, addColumn } = useColumns()
     const { setAlert } = useAlert()
     const [isCreating, setIsCreating] = useState(false)
 
@@ -23,7 +23,8 @@ const BoardColumns = ({ tasks, columns, onEdit }) => {
         <BoardLayout>
             {columns.map((col) => (
                 <TaskColumn
-                    key={col.status}
+                    key={col.id}
+                    id={col.id}
                     title={col.title}
                     status={col.status}
                     color={col.color}

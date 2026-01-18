@@ -32,3 +32,10 @@ export const taskDefault = [
         status: 'done',
     },
 ]
+
+export const DEFAULT_COLUMNS = [
+    { id: '1', title: 'Planer', status: 'plan', color: 'bg-yellow-500' },
+    { id: '2', title: 'To Do', status: 'todo', color: 'bg-blue-500' },
+    { id: '3', title: 'Doing', status: 'doing', color: 'bg-yellow-500' },
+    { id: '4', title: 'Done', status: 'done', color: 'bg-emerald-500' },
+]
