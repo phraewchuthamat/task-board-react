@@ -11,7 +11,7 @@ const ThemeToggleButton = () => {
             size="icon"
             onClick={toggleTheme}
             aria-label="Toggle Dark Mode"
-            className="rounded-full transition-transform hover:scale-105"
+            className="rounded-full hover:bg-gray-200 dark:hover:bg-gray-900 transition-transform hover:scale-110 cursor-pointer"
             title="Change Theme"
         >
             <div

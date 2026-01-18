@@ -1,25 +1,14 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import useAlert from '../alert/useAlert'
 import { useColumns } from './useColumns'
 
-// 1. รับ id เพิ่มเข้ามาใน arguments
-export const useColumnForm = (tasks, id, title) => {
+export const useColumnForm = (id, title) => {
     const { updateColumn, deleteColumn } = useColumns()
     const { setAlert } = useAlert()
 
     const [isEditing, setIsEditing] = useState(false)
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
-    const [isSearchOpen, setIsSearchOpen] = useState(false)
-    const [searchQuery, setSearchQuery] = useState('')
 
-    const filteredTasks = useMemo(() => {
-        if (!searchQuery.trim()) return tasks
-        return tasks.filter((task) =>
-            task.title.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-    }, [tasks, searchQuery])
-
-    // 2. ส่ง id ไป update แทน status
     const handleSaveEdit = (newTitle, newColor) => {
         updateColumn(id, { title: newTitle, color: newColor }) // ปรับรูปแบบ object ตาม ColumnContext
         setIsEditing(false)
@@ -30,7 +19,6 @@ export const useColumnForm = (tasks, id, title) => {
         setIsConfirmOpen(true)
     }
 
-    // 3. ใช้ id ที่รับมาจาก hook โดยตรง (ไม่ต้องรับผ่าน parameter ซ้ำ)
     const handleConfirmDelete = () => {
         deleteColumn(id)
         setIsConfirmOpen(false)
@@ -42,11 +30,6 @@ export const useColumnForm = (tasks, id, title) => {
         setIsEditing,
         isConfirmOpen,
         setIsConfirmOpen,
-        isSearchOpen,
-        setIsSearchOpen,
-        searchQuery,
-        setSearchQuery,
-        filteredTasks,
         handleSaveEdit,
         handleDeleteClick,
         handleConfirmDelete,
