@@ -34,11 +34,7 @@ export default function Board() {
         >
             <BoardHeader onNew={modal.openNewTask} />
 
-            <BoardColumns
-                tasks={taskItems}
-                columns={columns}
-                onEdit={modal.openEditTask}
-            />
+            <BoardColumns tasks={taskItems} onEdit={modal.openEditTask} />
 
             <TaskModal
                 isOpen={modal.isOpen}

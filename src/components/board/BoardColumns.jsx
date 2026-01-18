@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import BoardLayout from './BoardLayout'
 import Button from '../ui/Button'
@@ -12,6 +12,23 @@ const BoardColumns = ({ tasks, onEdit }) => {
     const { columns, addColumn } = useColumns()
     const { setAlert } = useAlert()
     const [isCreating, setIsCreating] = useState(false)
+
+    const tasksByStatus = useMemo(() => {
+        const grouped = {}
+
+        columns.forEach((col) => {
+            grouped[col.status] = []
+        })
+
+        tasks.forEach((task) => {
+            if (!grouped[task.status]) {
+                grouped[task.status] = []
+            }
+            grouped[task.status].push(task)
+        })
+
+        return grouped
+    }, [tasks, columns])
 
     const handleSaveColumn = (title, color) => {
         addColumn(title, color)
@@ -28,7 +45,7 @@ const BoardColumns = ({ tasks, onEdit }) => {
                     title={col.title}
                     status={col.status}
                     color={col.color}
-                    tasks={tasks.filter((t) => t.status === col.status)}
+                    tasks={tasksByStatus[col.status] || []}
                     onEdit={onEdit}
                 />
             ))}

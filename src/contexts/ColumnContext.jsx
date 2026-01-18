@@ -10,7 +10,6 @@ import { DEFAULT_COLUMNS } from '../utils/storage'
 
 const ColumnContext = createContext()
 
-// ฟังก์ชันสำหรับโหลดข้อมูลเริ่มต้น (Lazy Initialization)
 const initColumns = () => {
     const savedCols = localStorage.getItem('board_columns')
     if (savedCols) {
@@ -25,10 +24,8 @@ const initColumns = () => {
 }
 
 export default function ColumnProvider({ children }) {
-    // ใช้ useReducer โดยส่ง initColumns เป็น argument ตัวที่ 3
     const [columns, dispatch] = useReducer(columnReducer, [], initColumns)
 
-    // Sync ลง LocalStorage ทุกครั้งที่ columns เปลี่ยนแปลง
     useEffect(() => {
         localStorage.setItem('board_columns', JSON.stringify(columns))
     }, [columns])
@@ -38,9 +35,8 @@ export default function ColumnProvider({ children }) {
 
         const formattedStatus = title.trim().toLowerCase().replace(/\s+/g, '-')
 
-        // สร้าง Object ของ Column ใหม่ที่นี่ (Business Logic)
         const newColumn = {
-            id: Date.now().toString(), // สร้าง ID แบบ Unique (หรือใช้ Date.now().toString())
+            id: Date.now().toString(),
             title: title.trim(),
             status: formattedStatus,
             color: color || 'bg-gray-500',
