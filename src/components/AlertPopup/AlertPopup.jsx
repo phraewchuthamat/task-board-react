@@ -11,7 +11,6 @@ const AlertPopup = () => {
     const {
         icon: Icon,
         color,
-        border,
         bgIcon,
     } = ALERT_CONFIG[type] || ALERT_CONFIG.info
 
@@ -19,30 +18,39 @@ const AlertPopup = () => {
         <div
             data-state={visible ? 'open' : 'closed'}
             className={clsx(
-                'fixed top-6 right-6 z-[9999]',
-                'flex items-center gap-4 p-4 min-w-[320px] max-w-md',
-                'rounded-xl bg-app-surface border border-app-border shadow-xl',
+                'fixed z-[9999] flex items-center gap-4 p-4',
+                'top-4 right-4 left-4 sm:left-auto sm:top-6 sm:right-6',
+                'min-w-[auto] sm:min-w-[340px] max-w-md',
+                'bg-app-surface shadow-xl rounded-xl',
+                'border border-app-border border-l-4',
                 'transition-all duration-300 ease-out transform',
-                border,
                 visible
                     ? 'translate-y-0 opacity-100 scale-100'
-                    : '-translate-y-4 opacity-0 scale-95 pointer-events-none'
+                    : '-translate-y-4 opacity-0 scale-95 pointer-events-none',
+                color.replace('text-', 'border-')
             )}
         >
             <div className={clsx('p-2 rounded-full shrink-0', bgIcon)}>
                 <Icon className={clsx('w-6 h-6', color)} />
             </div>
 
-            <div className="flex-1">
-                <h4 className={clsx('text-sm font-bold capitalize', color)}>
+            <div className="flex-1 min-w-0">
+                <h4
+                    className={clsx(
+                        'text-sm font-bold capitalize mb-0.5',
+                        color
+                    )}
+                >
                     {type}
                 </h4>
-                <p className="text-sm text-app-subtle leading-snug">{text}</p>
+                <p className="text-sm text-app-subtle leading-snug break-words">
+                    {text}
+                </p>
             </div>
 
             <button
                 onClick={close}
-                className="p-1 rounded-lg text-app-subtle hover:text-app-text hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="shrink-0 p-1.5 -mr-1 rounded-lg text-app-subtle hover:text-app-text hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
                 <XMarkIcon className="w-5 h-5" />
             </button>
