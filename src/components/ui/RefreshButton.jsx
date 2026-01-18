@@ -12,9 +12,15 @@ const RefreshButton = () => {
             onClick={refetchTask}
             disabled={isLoading}
             className={isLoading ? 'animate-spin' : ''}
+            title="Refresh Board"
         >
-            <ArrowPathIcon className="w-5 h-5 mr-1.5" />
-            {isLoading ? 'Refreshing...' : 'Refresh '}
+            <ArrowPathIcon
+                className={`w-5 h-5 sm:mr-1.5 ${isLoading ? 'animate-spin' : ''}`}
+            />
+
+            <span className="hidden sm:inline">
+                {isLoading ? 'Refreshing...' : 'Refresh'}
+            </span>
         </Button>
     )
 }

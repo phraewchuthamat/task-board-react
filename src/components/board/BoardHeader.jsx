@@ -6,7 +6,6 @@ import RefreshButton from '../ui/RefreshButton'
 function BoardHeader({ onNew }) {
     return (
         <div className="flex items-center justify-between p-4">
-            {/* ส่วนหัวข้อ (ซ้าย) */}
             <div>
                 <h1 className="text-2xl font-bold text-app-text">
                     Kanban Board
@@ -16,13 +15,17 @@ function BoardHeader({ onNew }) {
                 </p>
             </div>
 
-            {/* ส่วนปุ่ม (ขวา) - คลุมด้วย div เพื่อจัดกลุ่ม */}
             <div className="flex items-center gap-3">
                 <RefreshButton />
 
-                <Button variant="primary" size="md" onClick={onNew}>
-                    <PlusIcon className="w-5 h-5 mr-1.5" />
-                    New Task
+                <Button
+                    variant="primary"
+                    size="md"
+                    onClick={onNew}
+                    title="Create New Task"
+                >
+                    <PlusIcon className="w-5 h-5 sm:mr-1.5" />
+                    <span className="hidden sm:inline">New Task</span>
                 </Button>
             </div>
         </div>

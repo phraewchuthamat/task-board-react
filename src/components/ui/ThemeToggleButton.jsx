@@ -12,6 +12,7 @@ const ThemeToggleButton = () => {
             onClick={toggleTheme}
             aria-label="Toggle Dark Mode"
             className="rounded-full transition-transform hover:scale-105"
+            title="Change Theme"
         >
             <div
                 className={`relative flex items-center justify-center transition-all duration-500 ${
