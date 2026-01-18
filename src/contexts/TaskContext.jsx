@@ -33,14 +33,18 @@ export default function TaskProvider({ children }) {
     useEffect(() => {
         const fetchTasks = async () => {
             setIsLoading(true)
-            await new Promise((resolve) => setTimeout(resolve, 1000))
+            try {
+                await new Promise((resolve) => setTimeout(resolve, 1000))
 
-            const saved = localStorage.getItem('todos')
-            const initialData = saved ? JSON.parse(saved) : taskDefault
+                const saved = localStorage.getItem('todos')
+                const initialData = saved ? JSON.parse(saved) : taskDefault
 
-            dispatch({ type: TASK_ACTIONS.INIT_TASK, payload: initialData })
-
-            setIsLoading(false)
+                dispatch({ type: TASK_ACTIONS.INIT_TASK, payload: initialData })
+            } catch (error) {
+                console.log('Fteching Data error:', error)
+            } finally {
+                setIsLoading(false)
+            }
         }
 
         fetchTasks()
@@ -96,6 +100,26 @@ export default function TaskProvider({ children }) {
         dispatch({ type: TASK_ACTIONS.CLEAR_TASK })
     }, [dispatch])
 
+    const refetchTask = useCallback(async () => {
+        setIsLoading(true)
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+
+            const saved = localStorage.getItem('todos')
+            const data = saved ? JSON.parse(saved) : taskDefault
+
+            dispatch({ type: TASK_ACTIONS.INIT_TASK, payload: data })
+        } catch (error) {
+            console.error('Fetch error:', error)
+        } finally {
+            setIsLoading(false)
+        }
+    }, [dispatch])
+
+    useEffect(() => {
+        refetchTask()
+    }, [refetchTask])
+
     const addColumn = useCallback((title, color) => {
         if (!title || !title.trim()) return
 
@@ -127,8 +151,10 @@ export default function TaskProvider({ children }) {
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('board_columns', JSON.stringify(columns))
-    }, [columns])
+        if (!isLoading) {
+            localStorage.setItem('todos', JSON.stringify(taskItems))
+        }
+    }, [taskItems, isLoading])
 
     const contextValue = useMemo(
         () => ({
@@ -138,6 +164,7 @@ export default function TaskProvider({ children }) {
             updateTask,
             removeFromTask,
             clearTask,
+            refetchTask,
             moveTask,
             columns,
             addColumn,
@@ -151,6 +178,7 @@ export default function TaskProvider({ children }) {
             updateTask,
             removeFromTask,
             clearTask,
+            refetchTask,
             moveTask,
             columns,
             addColumn,
