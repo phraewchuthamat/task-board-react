@@ -1,5 +1,16 @@
 import { useMemo, useState } from 'react'
-import { DndContext, DragOverlay, closestCorners } from '@dnd-kit/core'
+import {
+    DndContext,
+    DragOverlay,
+    closestCorners,
+    useSensor,
+    useSensors,
+    PointerSensor,
+    KeyboardSensor,
+    TouchSensor,
+    MeasuringStrategy,
+} from '@dnd-kit/core'
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useBoardDrag } from '../../hooks/useBoardDrag'
 import { useTaskModal } from '../../hooks/task/useTaskModal'
 import { useTasks } from '../../contexts/TaskContext'
@@ -24,6 +35,24 @@ export default function KanbanBoard() {
         moveTask
     )
 
+    //  Sensors Config
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 5, // ต้องลากเมาส์เกิน 5px ถึงจะนับว่าลาก (ช่วยให้คลิกปุ่มง่ายขึ้น)
+            },
+        }),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 250, // สำหรับมือถือ: กดค้าง 250ms ถึงจะลาก (ป้องกันเวลาเลื่อนจอ)
+                tolerance: 5,
+            },
+        }),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    )
+
     const modal = useTaskModal()
 
     const filteredTasks = useMemo(() => {
@@ -46,10 +75,16 @@ export default function KanbanBoard() {
 
     return (
         <DndContext
+            sensors={sensors}
             collisionDetection={closestCorners}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onDragCancel={onDragCancel}
+            measuring={{
+                droppable: {
+                    strategy: MeasuringStrategy.Always,
+                },
+            }}
         >
             <div className="flex flex-col h-full w-full">
                 <BoardHeader
