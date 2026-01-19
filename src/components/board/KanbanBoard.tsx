@@ -9,6 +9,8 @@ import {
     KeyboardSensor,
     TouchSensor,
     MeasuringStrategy,
+    defaultDropAnimationSideEffects,
+    DropAnimation,
 } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useBoardDrag } from '../../hooks/useBoardDrag'
@@ -21,6 +23,16 @@ import BoardHeader from './BoardHeader'
 import BoardColumns from './BoardColumns'
 import TaskCard from '../TaskCard/TaskCard'
 import TaskModal from '../TaskModal/TaskModal'
+
+const dropAnimationConfig: DropAnimation = {
+    sideEffects: defaultDropAnimationSideEffects({
+        styles: {
+            active: {
+                opacity: '0.5',
+            },
+        },
+    }),
+}
 
 export default function KanbanBoard() {
     const [searchQuery, setSearchQuery] = useState('')
@@ -106,7 +118,7 @@ export default function KanbanBoard() {
                     taskToEdit={modal.taskToEdit}
                 />
 
-                <DragOverlay>
+                <DragOverlay dropAnimation={dropAnimationConfig}>
                     {activeTask ? (
                         <TaskCard task={activeTask} isOverlay />
                     ) : null}
