@@ -19,15 +19,21 @@ function TaskCard({
     onDelete,
     isOverlay = false,
 }: TaskCardProps) {
-    const { setNodeRef, attributes, listeners, transform, transition } =
-        useSortable({
-            id: task.id,
-            data: {
-                type: 'Task',
-                task,
-            },
-            disabled: isEditMode,
-        })
+    const {
+        setNodeRef,
+        attributes,
+        listeners,
+        transform,
+        transition,
+        isDragging,
+    } = useSortable({
+        id: task.id,
+        data: {
+            type: 'Task',
+            task,
+        },
+        disabled: isEditMode,
+    })
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -41,10 +47,14 @@ function TaskCard({
             {...attributes}
             {...listeners}
             className={clsx(
-                'relative rounded-lg p-4 cursor-grab active:cursor-grabbing',
+                // Layout & Style
+                'relative rounded-lg p-4',
                 'bg-app-card shadow-md border border-app-border',
-                'transition-shadow hover:shadow-lg',
-                isOverlay && 'pointer-events-none opacity-90'
+                // Interaction
+                'cursor-grab active:cursor-grabbing',
+                'touch-none',
+                isOverlay && 'pointer-events-none opacity-90',
+                isDragging && 'opacity-30'
             )}
         >
             <TaskCardActions task={task} onEdit={onEdit} onDelete={onDelete} />

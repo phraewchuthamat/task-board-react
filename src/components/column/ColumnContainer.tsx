@@ -1,15 +1,24 @@
 import { forwardRef, ReactNode } from 'react'
+import clsx from 'clsx'
 
 interface ColumnContainerProps {
     children: ReactNode
+    className?: string
 }
 
 const ColumnContainer = forwardRef<HTMLDivElement, ColumnContainerProps>(
-    ({ children }, ref) => {
+    ({ children, className }, ref) => {
         return (
             <div
                 ref={ref}
-                className="flex flex-col w-80 shrink-0 max-h-full bg-app-surface/50 border border-app-border rounded-xl shadow-sm backdrop-blur-sm"
+                className={clsx(
+                    'flex flex-col w-80 shrink-0',
+                    'bg-gray-100/50 dark:bg-gray-800/50',
+                    'border border-gray-200 dark:border-gray-700',
+                    'rounded-lg backdrop-blur-sm',
+                    'transition-colors duration-300',
+                    className
+                )}
             >
                 {children}
             </div>

@@ -41,7 +41,7 @@ function TaskColumn({
     } = useColumnForm(id)
 
     return (
-        <ColumnContainer ref={setNodeRef}>
+        <ColumnContainer ref={setNodeRef} className="h-full max-h-full">
             <div className="flex-none p-2">
                 {isEditing ? (
                     <ColumnForm
@@ -65,18 +65,25 @@ function TaskColumn({
             {!isEditing && (
                 <div
                     className={clsx(
-                        'flex-1 overflow-y-auto min-h-0 p-4 pt-0 flex flex-col gap-3 transition-colors',
+                        'flex-1 overflow-y-scroll min-h-0',
                         'scrollbar-thin',
-                        // ไฮไลท์เมื่อมีของมาลากผ่าน
-                        isOver && 'bg-app-primary/5 rounded-b-xl'
+                        'p-4 pt-0 flex flex-col gap-3 transition-colors duration-200',
+                        'scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600',
+                        isOver ? 'bg-app-primary/10' : 'bg-transparent'
                     )}
                 >
                     <TaskList tasks={tasks} onEdit={onEdit} />
 
-                    {/* Placeholder เมื่อไม่มี Task */}
-                    {tasks.length === 0 && !isOver && (
-                        <div className="h-24 flex items-center justify-center text-sm text-app-subtle opacity-60 border-2 border-dashed border-app-border rounded-xl">
-                            Drop task here
+                    {tasks.length === 0 && (
+                        <div
+                            className={clsx(
+                                'h-24 flex items-center justify-center text-sm rounded-xl transition-all border-2 border-dashed mt-4',
+                                isOver
+                                    ? 'border-app-primary text-app-primary bg-app-surface' // ตอนลากมาวาง
+                                    : 'border-app-border text-app-subtle opacity-60' // ตอนปกติ
+                            )}
+                        >
+                            {isOver ? 'Drop here!' : 'Drop task here'}
                         </div>
                     )}
                 </div>

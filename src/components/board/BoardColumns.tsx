@@ -4,7 +4,7 @@ import BoardLayout from './BoardLayout'
 import Button from '../ui/Button'
 import TaskColumn from '../column/TaskColumn'
 import ColumnForm from '../column/ColumnForm'
-import { useAlert } from '../../contexts/AlertContext' // ใช้ Context ที่เราทำ
+import { useAlert } from '../../contexts/AlertContext'
 import { useColumns } from '../../contexts/ColumnContext'
 import { Task } from '../../utils/storage'
 
@@ -19,21 +19,17 @@ const BoardColumns = ({ tasks, onEdit }: BoardColumnsProps) => {
     const [isCreating, setIsCreating] = useState(false)
 
     const tasksByStatus = useMemo(() => {
-        const grouped: Record<string, Task[]> = {}
-
-        columns.forEach((col) => {
-            grouped[col.status] = []
-        })
-
-        tasks.forEach((task) => {
-            if (!grouped[task.status]) {
-                grouped[task.status] = []
-            }
-            grouped[task.status].push(task)
-        })
-
-        return grouped
-    }, [tasks, columns])
+        return tasks.reduce(
+            (acc, task) => {
+                if (!acc[task.status]) {
+                    acc[task.status] = []
+                }
+                acc[task.status].push(task)
+                return acc
+            },
+            {} as Record<string, Task[]>
+        )
+    }, [tasks])
 
     const handleSaveColumn = (title: string, color: string) => {
         addColumn(title, color)

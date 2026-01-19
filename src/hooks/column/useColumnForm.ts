@@ -23,7 +23,7 @@ export function useColumnForm(columnId: string) {
     const handleConfirmDelete = () => {
         deleteColumn(columnId)
         setIsConfirmOpen(false)
-        setAlert(`Column deleted successfully`, 'success')
+        setAlert(`deleted column successfully`, 'success')
     }
 
     return {
