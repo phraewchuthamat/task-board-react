@@ -10,7 +10,7 @@ export const useColumnForm = (id, title) => {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
     const handleSaveEdit = (newTitle, newColor) => {
-        updateColumn(id, { title: newTitle, color: newColor }) // ปรับรูปแบบ object ตาม ColumnContext
+        updateColumn(id, { title: newTitle, color: newColor })
         setIsEditing(false)
         setAlert(`Updated column "${newTitle}" successfully`, 'success')
     }
