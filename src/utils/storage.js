@@ -2,7 +2,7 @@ export const taskDefault = [
     {
         id: '1',
         title: 'Design Wireframe Figma',
-        description: 'ออกแบบ mockup figma Resposive ทุก device',
+        description: 'ออกแบบ mockup figma Responsive ทุก device',
         priority: 'high',
         createdAt: new Date().toISOString(),
         status: 'plan',
@@ -34,7 +34,7 @@ export const taskDefault = [
 ]
 
 export const DEFAULT_COLUMNS = [
-    { id: '1', title: 'Planer', status: 'plan', color: 'bg-yellow-500' },
+    { id: '1', title: 'Planner', status: 'plan', color: 'bg-gray-500' },
     { id: '2', title: 'To Do', status: 'todo', color: 'bg-blue-500' },
     { id: '3', title: 'Doing', status: 'doing', color: 'bg-yellow-500' },
     { id: '4', title: 'Done', status: 'done', color: 'bg-emerald-500' },
