@@ -1,7 +1,8 @@
-import { useState, memo, MouseEvent } from 'react'
+import { useState, memo } from 'react'
 import { XMarkIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import { Task } from '../../utils/storage'
 import ConfirmDialog from '../dialog/ConfirmDialog'
+import { useAlert } from '../../contexts/AlertContext'
 
 interface TaskCardActionsProps {
     task: Task
@@ -12,38 +13,37 @@ interface TaskCardActionsProps {
 function TaskCardActions({ task, onEdit, onDelete }: TaskCardActionsProps) {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
-    const handleConfirmDelete = () => {
-        onDelete?.(task.id)
-        setIsConfirmOpen(false)
-    }
+    const { setAlert } = useAlert()
 
-    const stopPropagation = (e: MouseEvent) => {
-        e.stopPropagation()
+    const handleConfirmDelete = () => {
+        if (onDelete) {
+            onDelete(task.id)
+            setAlert('Task deleted successfully', 'success')
+        }
+        setIsConfirmOpen(false)
     }
 
     return (
         <>
             <div className="absolute top-2 right-2 flex gap-1 text-app-subtle">
                 <button
-                    onPointerDown={stopPropagation}
+                    onPointerDown={(e) => e.stopPropagation()}
                     onClick={(e) => {
-                        stopPropagation(e)
+                        e.stopPropagation()
                         onEdit?.(task)
                     }}
-                    className="p-1 rounded hover:bg-app-bg hover:text-app-text transition-colors"
-                    title="Edit Task"
+                    className="p-1 rounded hover:bg-app-bg hover:text-app-text"
                 >
                     <PencilSquareIcon className="w-4 h-4" />
                 </button>
 
                 <button
-                    onPointerDown={stopPropagation}
+                    onPointerDown={(e) => e.stopPropagation()}
                     onClick={(e) => {
-                        stopPropagation(e)
+                        e.stopPropagation()
                         setIsConfirmOpen(true)
                     }}
-                    className="p-1 rounded hover:bg-red-500/10 hover:text-red-500 transition-colors"
-                    title="Delete Task"
+                    className="p-1 rounded hover:bg-red-500/10 hover:text-red-500"
                 >
                     <XMarkIcon className="w-4 h-4" />
                 </button>

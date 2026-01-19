@@ -13,7 +13,7 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     error?: FieldError
     options?: SelectOption[]
     containerClassName?: string
-    placeholder?: string // HTML Select ไม่มี placeholder จริงๆ เราเลยต้องรับมาทำเอง
+    placeholder?: string
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
@@ -60,7 +60,6 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                         )}
                         {...props}
                     >
-                        {/* Placeholder Logic */}
                         {placeholder && (
                             <option value="" disabled hidden>
                                 {placeholder}
@@ -76,7 +75,6 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                         {children}
                     </select>
 
-                    {/* Arrow Icon */}
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-app-subtle">
                         <svg
                             className="h-4 w-4 fill-current"

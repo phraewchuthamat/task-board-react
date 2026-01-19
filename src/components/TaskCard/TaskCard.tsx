@@ -3,8 +3,9 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import clsx from 'clsx'
 import { Task } from '../../utils/storage'
-import TaskCardActions from './TaskCardActions'
+
 import TaskCardMeta from './TaskCardMeta'
+import TaskCardActions from './TaskCardActions'
 
 interface TaskCardProps {
     task: Task
@@ -48,8 +49,8 @@ function TaskCard({
             {...listeners}
             className={clsx(
                 // Layout & Style
-                'relative rounded-lg p-4',
-                'bg-app-card shadow-md border border-app-border',
+                'relative rounded p-4',
+                'bg-app-card shadow border border-app-border',
                 // Interaction
                 'cursor-grab active:cursor-grabbing',
                 'touch-none',
@@ -72,7 +73,6 @@ function TaskCard({
     )
 }
 
-// Helper dummy variable
 const isEditMode = false
 
 export default memo(TaskCard)

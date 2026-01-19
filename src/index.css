@@ -96,4 +96,13 @@
     .dark .scrollbar-thin {
         scrollbar-color: rgb(75, 85, 99) transparent;
     }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
 }

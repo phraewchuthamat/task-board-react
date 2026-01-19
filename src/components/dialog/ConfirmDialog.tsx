@@ -21,13 +21,11 @@ export default function ConfirmDialog({
 
     return createPortal(
         <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
-            {/* Backdrop */}
             <div
                 className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
                 onClick={onClose}
             />
 
-            {/* Panel */}
             <div
                 onPointerDown={(e) => e.stopPropagation()}
                 className="relative bg-app-surface w-full max-w-md rounded-xl shadow-2xl overflow-hidden transform transition-all scale-100 opacity-100 border border-app-border"

@@ -20,11 +20,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             error,
             className = '',
             containerClassName = '',
-            ...props // props ที่เหลือจะถูกส่งไปที่ input โดยตรง (Type-safe)
+            ...props
         },
         ref
     ) => {
-        // Safe access error message
         const errorMessage = typeof error === 'string' ? error : error?.message
 
         return (

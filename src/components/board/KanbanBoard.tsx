@@ -6,11 +6,11 @@ import {
     useSensor,
     useSensors,
     PointerSensor,
-    KeyboardSensor,
     TouchSensor,
-    MeasuringStrategy,
+    KeyboardSensor,
     defaultDropAnimationSideEffects,
     DropAnimation,
+    MeasuringStrategy,
 } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useBoardDrag } from '../../hooks/useBoardDrag'
@@ -27,9 +27,7 @@ import TaskModal from '../TaskModal/TaskModal'
 const dropAnimationConfig: DropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
         styles: {
-            active: {
-                opacity: '0.5',
-            },
+            active: { opacity: '0.5' },
         },
     }),
 }
@@ -47,18 +45,10 @@ export default function KanbanBoard() {
         moveTask
     )
 
-    //  Sensors Config
     const sensors = useSensors(
-        useSensor(PointerSensor, {
-            activationConstraint: {
-                distance: 5, // ต้องลากเมาส์เกิน 5px ถึงจะนับว่าลาก (ช่วยให้คลิกปุ่มง่ายขึ้น)
-            },
-        }),
+        useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
         useSensor(TouchSensor, {
-            activationConstraint: {
-                delay: 250, // สำหรับมือถือ: กดค้าง 250ms ถึงจะลาก (ป้องกันเวลาเลื่อนจอ)
-                tolerance: 5,
-            },
+            activationConstraint: { delay: 150, tolerance: 5 },
         }),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
@@ -75,10 +65,8 @@ export default function KanbanBoard() {
                 task.description
                     ?.toLowerCase()
                     .includes(searchQuery.toLowerCase())
-
             const matchesPriority =
                 !filterPriority || task.priority === filterPriority
-
             return matchesSearch && matchesPriority
         })
     }, [taskItems, searchQuery, filterPriority])
@@ -92,25 +80,34 @@ export default function KanbanBoard() {
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onDragCancel={onDragCancel}
-            measuring={{
-                droppable: {
-                    strategy: MeasuringStrategy.Always,
-                },
-            }}
+            measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
         >
+            {/* Main Layout: Flex Column เต็มความสูง */}
             <div className="flex flex-col h-full w-full">
-                <BoardHeader
-                    onNew={modal.openNewTask}
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    filterPriority={filterPriority}
-                    setFilterPriority={setFilterPriority}
-                />
+                {/* 1. Board Header (Filters) */}
+                <div className="flex-none px-6 py-4 border-b border-app-border/50 bg-app-bg">
+                    <BoardHeader
+                        onNew={modal.openNewTask}
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                        filterPriority={filterPriority}
+                        setFilterPriority={setFilterPriority}
+                    />
+                </div>
 
-                <BoardColumns
-                    tasks={filteredTasks}
-                    onEdit={modal.openEditTask}
-                />
+                {/* 2. Board Area (Scrollable X) */}
+                {/* flex-1: ยืดเต็มพื้นที่ที่เหลือ
+                    overflow-x-auto: ให้ Scroll แนวนอนได้
+                    overflow-y-hidden: ห้าม Scroll แนวตั้ง (จะไป Scroll ใน Column แทน)
+                */}
+                <div className="flex-1 overflow-x-auto overflow-y-hidden px-6 pb-4 scrollbar-thin scroll-smooth snap-x snap-mandatory">
+                    <div className="h-full inline-flex gap-6 items-start">
+                        <BoardColumns
+                            tasks={filteredTasks}
+                            onEdit={modal.openEditTask}
+                        />
+                    </div>
+                </div>
 
                 <TaskModal
                     isOpen={modal.isOpen}
