@@ -17,6 +17,7 @@ interface TaskContextType {
     createTask: (taskData: Omit<Task, 'id' | 'createdAt' | 'status'>) => void
     updateTask: (id: string, updates: Partial<Task>) => void
     moveTask: (id: string, status: TaskStatus) => void
+    reorderTask: (activeId: string, overId: string) => void
     removeFromTask: (id: string) => void
     clearTask: () => void
     refetchTask: () => Promise<void>
@@ -99,13 +100,21 @@ export default function TaskProvider({ children }: TaskProviderProps) {
         [dispatch]
     )
 
+    const reorderTask = useCallback(
+        (activeId: string, overId: string) => {
+            dispatch({
+                type: TASK_ACTIONS.REORDER_TASK,
+                payload: { activeId, overId },
+            })
+        },
+        [dispatch]
+    )
+
     const clearTask = useCallback(() => {
         dispatch({ type: TASK_ACTIONS.CLEAR_TASK })
     }, [dispatch])
 
     const refetchTask = performFetch
-
-    // ลบ useEffect ซ้ำซ้อนออก (คุณมี logic save localStorage 2 รอบในไฟล์เดิม)
 
     const contextValue = useMemo(
         () => ({
@@ -117,6 +126,7 @@ export default function TaskProvider({ children }: TaskProviderProps) {
             clearTask,
             refetchTask,
             moveTask,
+            reorderTask,
         }),
         [
             taskItems,
@@ -127,6 +137,7 @@ export default function TaskProvider({ children }: TaskProviderProps) {
             clearTask,
             refetchTask,
             moveTask,
+            reorderTask,
         ]
     )
 

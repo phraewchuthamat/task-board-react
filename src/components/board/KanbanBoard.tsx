@@ -36,13 +36,14 @@ export default function KanbanBoard() {
     const [searchQuery, setSearchQuery] = useState('')
     const [filterPriority, setFilterPriority] = useState<Priority | ''>('')
 
-    const { taskItems, moveTask, isLoading } = useTasks()
+    const { taskItems, moveTask, reorderTask, isLoading } = useTasks()
     const { columns } = useColumns()
 
     const { activeTask, onDragStart, onDragEnd, onDragCancel } = useBoardDrag(
         taskItems,
         columns,
-        moveTask
+        moveTask,
+        reorderTask
     )
 
     const sensors = useSensors(
