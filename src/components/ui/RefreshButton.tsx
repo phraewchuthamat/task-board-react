@@ -1,9 +1,11 @@
 import { useTasks } from '../../contexts/TaskContext'
 import Button from './Button'
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 const RefreshButton = () => {
     const { refetchTask, isLoading } = useTasks()
+    const { trans } = useLanguage()
 
     return (
         <Button
@@ -19,7 +21,9 @@ const RefreshButton = () => {
             />
 
             <span className="hidden sm:inline">
-                {isLoading ? 'Refreshing...' : 'Refresh'}
+                {isLoading
+                    ? `${trans('btn_refresh')}`
+                    : `${trans('btn_refresh')}`}
             </span>
         </Button>
     )

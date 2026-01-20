@@ -1,6 +1,6 @@
 export type Priority = 'low' | 'medium' | 'high'
 
-export type TaskStatus = 'plan' | 'todo' | 'doing' | 'done'
+export type TaskStatus = 'draft' | 'todo' | 'doing' | 'done'
 
 export interface Task {
     id: string
@@ -18,7 +18,7 @@ export const taskDefault: Task[] = [
         description: 'ออกแบบ mockup figma Responsive ทุก device',
         priority: 'high',
         createdAt: new Date().toISOString(),
-        status: 'plan',
+        status: 'draft',
     },
     {
         id: '2',
@@ -54,7 +54,7 @@ export interface Column {
 }
 
 export const DEFAULT_COLUMNS: Column[] = [
-    { id: '1', title: 'Planner', status: 'plan', color: 'bg-gray-500' },
+    { id: '1', title: 'Draft', status: 'draft', color: 'bg-gray-500' },
     { id: '2', title: 'To Do', status: 'todo', color: 'bg-blue-500' },
     { id: '3', title: 'Doing', status: 'doing', color: 'bg-yellow-500' },
     { id: '4', title: 'Done', status: 'done', color: 'bg-emerald-500' },

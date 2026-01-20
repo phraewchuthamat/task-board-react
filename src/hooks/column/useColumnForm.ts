@@ -1,11 +1,12 @@
 import { useState } from 'react'
-
 import { useColumns } from '../../contexts/ColumnContext'
 import { useAlert } from '../../contexts/AlertContext'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 export function useColumnForm(columnId: string) {
     const { updateColumn, deleteColumn } = useColumns()
     const { setAlert } = useAlert()
+    const { trans } = useLanguage()
 
     const [isEditing, setIsEditing] = useState(false)
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
@@ -13,7 +14,7 @@ export function useColumnForm(columnId: string) {
     const handleSaveEdit = (newTitle: string, newColor: string) => {
         updateColumn(columnId, { title: newTitle, color: newColor })
         setIsEditing(false)
-        setAlert(`Column "${newTitle}" updated!`, 'success')
+        setAlert(`${trans('alert_update_success')}`, 'success')
     }
 
     const handleDeleteClick = () => {
@@ -23,7 +24,7 @@ export function useColumnForm(columnId: string) {
     const handleConfirmDelete = () => {
         deleteColumn(columnId)
         setIsConfirmOpen(false)
-        setAlert('Deleted column successfully!', 'success')
+        setAlert(`${trans('alert_delete_success')}`, 'success')
     }
 
     return {

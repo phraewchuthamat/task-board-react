@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import TaskForm from './TaskForm'
 import useTaskForm from '../../hooks/task/useTaskForm'
 import { Task } from '../../utils/storage'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 interface TaskModalProps {
     isOpen: boolean
@@ -17,6 +18,7 @@ export default function TaskModal({
     taskToEdit,
 }: TaskModalProps) {
     const form = useTaskForm({ isOpen, onClose, taskToEdit })
+    const { trans } = useLanguage()
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -36,7 +38,9 @@ export default function TaskModal({
                     >
                         <div className="flex justify-between mb-6">
                             <Dialog.Title className="text-2xl font-bold">
-                                {form.isEditMode ? 'Edit Task' : 'New Task'}
+                                {form.isEditMode
+                                    ? `${trans('btn_edit')}`
+                                    : `${trans('btn_new_task')}`}
                             </Dialog.Title>
 
                             <button onClick={onClose}>

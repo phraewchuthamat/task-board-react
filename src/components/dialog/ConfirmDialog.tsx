@@ -1,6 +1,7 @@
 import { createPortal } from 'react-dom'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Button from '../ui/Button'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 interface ConfirmDialogProps {
     isOpen: boolean
@@ -18,6 +19,8 @@ export default function ConfirmDialog({
     message,
 }: ConfirmDialogProps) {
     if (!isOpen) return null
+
+    const { trans } = useLanguage()
 
     return createPortal(
         <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
@@ -60,14 +63,14 @@ export default function ConfirmDialog({
 
                 <div className="bg-gray-50 dark:bg-gray-800/50 px-6 py-4 flex justify-end gap-3 border-t border-app-border">
                     <Button variant="ghost" onClick={onClose}>
-                        Cancel
+                        {trans('btn_cancel')}
                     </Button>
                     <Button
                         variant="danger"
                         onClick={onConfirm}
                         className="!bg-rose-600 hover:!bg-rose-700 text-white border-transparent"
                     >
-                        Confirm
+                        {trans('btn_confirm')}
                     </Button>
                 </div>
             </div>

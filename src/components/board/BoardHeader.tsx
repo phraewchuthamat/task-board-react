@@ -4,6 +4,7 @@ import Button from '../ui/Button'
 import RefreshButton from '../ui/RefreshButton'
 import SearchBar from '../ui/SearchBar'
 import { Priority } from '../../utils/storage'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 interface BoardHeaderProps {
     onNew: () => void
@@ -20,14 +21,16 @@ function BoardHeader({
     filterPriority,
     setFilterPriority,
 }: BoardHeaderProps) {
+    const { trans } = useLanguage()
+
     return (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-4">
             <div>
                 <h1 className="text-2xl font-bold text-app-text">
-                    Kanban Board
+                    {trans('app_title')}
                 </h1>
                 <p className="text-xs text-app-subtle mt-1">
-                    Manage your team tasks
+                    {trans('app_sub')}
                 </p>
             </div>
 
@@ -39,7 +42,7 @@ function BoardHeader({
                     onFilterChange={(e) =>
                         setFilterPriority(e.target.value as Priority | '')
                     }
-                    placeholder="Search tasks..."
+                    placeholder={trans('placeholder_search')}
                     className="w-full sm:w-auto"
                 />
 
@@ -54,7 +57,9 @@ function BoardHeader({
                     title="Create New Task"
                 >
                     <PlusIcon className="w-5 h-5 sm:mr-1.5" />
-                    <span className="hidden sm:inline">New Task</span>
+                    <span className="hidden sm:inline">
+                        {trans('btn_new_task')}
+                    </span>
                 </Button>
             </div>
         </div>

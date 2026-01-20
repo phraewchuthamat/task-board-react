@@ -8,6 +8,7 @@ import ColumnForm from './ColumnForm'
 import ConfirmDialog from '../dialog/ConfirmDialog'
 import { useColumnForm } from '../../hooks/column/useColumnForm'
 import { Task } from '../../utils/storage'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 interface TaskColumnProps {
     id: string
@@ -27,6 +28,7 @@ function TaskColumn({
     onEdit,
 }: TaskColumnProps) {
     const { setNodeRef, isOver } = useDroppable({ id: status })
+    const { trans } = useLanguage()
 
     const {
         isEditing,
@@ -83,7 +85,9 @@ function TaskColumn({
                                         : 'border-app-border/50 text-app-subtle/50'
                                 )}
                             >
-                                {isOver ? 'Drop here!' : 'Empty'}
+                                {isOver
+                                    ? `${trans('drop_here')}`
+                                    : `${trans('empty_col')}`}
                             </div>
                         )}
                     </div>
@@ -95,7 +99,7 @@ function TaskColumn({
                 onClose={() => setIsConfirmOpen(false)}
                 onConfirm={handleConfirmDelete}
                 title="Delete Column"
-                message={`Are you sure you want to delete column "${title}"?`}
+                message={`${trans('dialog_del_desc')} "${title}"?`}
             />
         </ColumnContainer>
     )

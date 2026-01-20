@@ -6,6 +6,7 @@ import {
     TrashIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 interface ColumnMenuProps {
     onEdit?: () => void
@@ -13,6 +14,8 @@ interface ColumnMenuProps {
 }
 
 export default function ColumnMenu({ onEdit, onDelete }: ColumnMenuProps) {
+    const { trans } = useLanguage()
+
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
@@ -55,7 +58,7 @@ export default function ColumnMenu({ onEdit, onDelete }: ColumnMenuProps) {
                                         )}
                                         aria-hidden="true"
                                     />
-                                    Edit Column
+                                    {trans('column_edit')}
                                 </button>
                             )}
                         </Menu.Item>
@@ -82,7 +85,7 @@ export default function ColumnMenu({ onEdit, onDelete }: ColumnMenuProps) {
                                         )}
                                         aria-hidden="true"
                                     />
-                                    Delete Column
+                                    {trans('column_delete')}
                                 </button>
                             )}
                         </Menu.Item>

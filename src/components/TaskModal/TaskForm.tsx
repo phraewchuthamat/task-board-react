@@ -5,6 +5,7 @@ import Button from '../ui/Button'
 import { PRIORITY_OPTIONS } from '../../utils/formatters'
 import { SubmitHandler, UseFormReturn } from 'react-hook-form'
 import { TaskFormData } from '../../hooks/task/useTaskForm'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 interface TaskFormProps {
     form: UseFormReturn<TaskFormData>
@@ -25,11 +26,13 @@ export default function TaskForm({
         formState: { errors },
     } = form
 
+    const { trans } = useLanguage()
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <Input
-                label="Title"
-                placeholder="Enter task title..."
+                label={trans('label_title')}
+                placeholder={trans('label_title')}
                 {...register('title', {
                     required: 'Task title is required',
                 })}
@@ -37,8 +40,8 @@ export default function TaskForm({
             />
 
             <Textarea
-                label="Description"
-                placeholder="Enter details..."
+                label={trans('label_desc')}
+                placeholder={trans('label_desc')}
                 {...register('description', {
                     required: 'Task description is required',
                 })}
@@ -46,7 +49,7 @@ export default function TaskForm({
             />
 
             <Select
-                label="Priority"
+                label={trans('label_priority')}
                 {...register('priority')}
                 options={PRIORITY_OPTIONS}
                 error={errors.priority}
@@ -54,11 +57,13 @@ export default function TaskForm({
 
             <div className="mt-8 flex justify-end gap-3">
                 <Button type="button" variant="secondary" onClick={onCancel}>
-                    Cancel
+                    {trans('btn_cancel')}
                 </Button>
 
                 <Button type="submit" variant="primary">
-                    {isEditMode ? 'Save Changes' : 'Create Task'}
+                    {isEditMode
+                        ? `${trans('btn_edit')}`
+                        : `${trans('btn_save')}`}
                 </Button>
             </div>
         </form>

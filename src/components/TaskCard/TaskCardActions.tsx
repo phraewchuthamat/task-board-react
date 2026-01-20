@@ -3,6 +3,7 @@ import { XMarkIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import { Task } from '../../utils/storage'
 import ConfirmDialog from '../dialog/ConfirmDialog'
 import { useAlert } from '../../contexts/AlertContext'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 interface TaskCardActionsProps {
     task: Task
@@ -14,11 +15,12 @@ function TaskCardActions({ task, onEdit, onDelete }: TaskCardActionsProps) {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
     const { setAlert } = useAlert()
+    const { trans } = useLanguage()
 
     const handleConfirmDelete = () => {
         if (onDelete) {
             onDelete(task.id)
-            setAlert('Task deleted successfully', 'success')
+            setAlert(`${trans('alert_delete_success')}`, 'success')
         }
         setIsConfirmOpen(false)
     }
@@ -54,7 +56,7 @@ function TaskCardActions({ task, onEdit, onDelete }: TaskCardActionsProps) {
                 onClose={() => setIsConfirmOpen(false)}
                 onConfirm={handleConfirmDelete}
                 title="Confirm deletion"
-                message={`Are you sure you want to delete "${task.title}"?`}
+                message={`${trans('dialog_del_title')} "${task.title}"?`}
             />
         </>
     )

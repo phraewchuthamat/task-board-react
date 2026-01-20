@@ -3,7 +3,6 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import clsx from 'clsx'
 import { Task } from '../../utils/storage'
-
 import TaskCardMeta from './TaskCardMeta'
 import TaskCardActions from './TaskCardActions'
 
@@ -48,10 +47,8 @@ function TaskCard({
             {...attributes}
             {...listeners}
             className={clsx(
-                // Layout & Style
                 'relative rounded p-4',
                 'bg-app-card shadow border border-app-border',
-                // Interaction
                 'cursor-grab active:cursor-grabbing',
                 'touch-none',
                 isOverlay && 'pointer-events-none opacity-90',

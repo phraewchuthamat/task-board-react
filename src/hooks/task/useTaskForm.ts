@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAlert } from '../../contexts/AlertContext'
 import { useTasks } from '../../contexts/TaskContext'
 import { Task, Priority } from '../../utils/storage'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 export interface TaskFormData {
     title: string
@@ -23,6 +24,7 @@ export default function useTaskForm({
 }: UseTaskFormProps) {
     const { createTask, updateTask } = useTasks()
     const { setAlert } = useAlert()
+    const { trans } = useLanguage()
 
     const form = useForm<TaskFormData>({
         defaultValues: {
@@ -55,10 +57,10 @@ export default function useTaskForm({
     const onSubmit: SubmitHandler<TaskFormData> = (data) => {
         if (taskToEdit) {
             updateTask(taskToEdit.id, data)
-            setAlert('Edit task finished!', 'success')
+            setAlert(`${trans('alert_update_success')}`, 'success')
         } else {
             createTask(data)
-            setAlert('Create new task successfully!', 'success')
+            setAlert(`${trans('alert_create_success')}`, 'success')
         }
         onClose()
     }

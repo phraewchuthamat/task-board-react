@@ -1,11 +1,10 @@
 import { useState, FormEvent } from 'react'
 import Button from '../ui/Button'
-
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Input from '../ui/Input'
 import { COLUMN_COLORS } from '../../utils/formatters'
+import { useLanguage } from '../../contexts/LanguageContext'
 
-// 1. กำหนด Props
 interface ColumnFormProps {
     onSave: (title: string, color: string) => void
     onCancel: () => void
@@ -21,6 +20,7 @@ export default function ColumnForm({
     initialData,
 }: ColumnFormProps) {
     const [title, setTitle] = useState(initialData?.title || '')
+    const { trans } = useLanguage()
 
     const [selectedColor, setSelectColor] = useState(() => {
         return initialData?.color || 'bg-gray-500'
@@ -28,7 +28,6 @@ export default function ColumnForm({
 
     const [error, setError] = useState('')
 
-    // 2. กำหนด Type ให้ Event (FormEvent)
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
 
@@ -47,10 +46,9 @@ export default function ColumnForm({
                     value={title}
                     onChange={(e) => {
                         setTitle(e.target.value)
-                        setError('') // Clear error เมื่อ user พิมพ์
+                        setError('')
                     }}
-                    placeholder="Enter column title..."
-                    // ส่ง error ไปให้ Input component จัดการแสดงผลเอง (ลดโค้ดซ้ำซ้อน)
+                    placeholder={trans('column_title')}
                     error={error}
                     autoFocus
                 />
@@ -58,10 +56,9 @@ export default function ColumnForm({
 
             <div>
                 <span className="text-xs text-app-subtle mb-2 mt-1 block">
-                    Select Color:
+                    {trans('column_select_color')}
                 </span>
                 <div className="flex flex-wrap gap-3">
-                    {/* Object.entries จะ return [string, string][] */}
                     {Object.entries(COLUMN_COLORS).map(([name, colorClass]) => (
                         <button
                             key={name}
@@ -87,7 +84,6 @@ export default function ColumnForm({
                 </div>
             </div>
 
-            {/* Actions */}
             <div className="flex gap-2 justify-end pt-2">
                 <Button
                     type="button"
@@ -95,11 +91,11 @@ export default function ColumnForm({
                     size="sm"
                     onClick={onCancel}
                 >
-                    Cancel
+                    {trans('btn_cancel')}
                 </Button>
 
                 <Button type="submit" variant="primary" size="sm">
-                    Save
+                    {trans('btn_save')}
                 </Button>
             </div>
         </form>

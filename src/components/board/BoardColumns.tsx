@@ -7,6 +7,7 @@ import ColumnForm from '../column/ColumnForm'
 import { useAlert } from '../../contexts/AlertContext'
 import { useColumns } from '../../contexts/ColumnContext'
 import { Task } from '../../utils/storage'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 interface BoardColumnsProps {
     tasks: Task[]
@@ -16,6 +17,7 @@ interface BoardColumnsProps {
 const BoardColumns = ({ tasks, onEdit }: BoardColumnsProps) => {
     const { columns, addColumn } = useColumns()
     const { setAlert } = useAlert()
+    const { trans } = useLanguage()
     const [isCreating, setIsCreating] = useState(false)
 
     const tasksByStatus = useMemo(() => {
@@ -34,7 +36,7 @@ const BoardColumns = ({ tasks, onEdit }: BoardColumnsProps) => {
     const handleSaveColumn = (title: string, color: string) => {
         addColumn(title, color)
         setIsCreating(false)
-        setAlert('Create new column successfully!', 'success')
+        setAlert(`${trans('alert_create_success')}`, 'success')
     }
 
     return (
@@ -61,10 +63,10 @@ const BoardColumns = ({ tasks, onEdit }: BoardColumnsProps) => {
                     <Button
                         variant="secondary"
                         onClick={() => setIsCreating(true)}
-                        className="w-full h-[56px] border-dashed border-2 bg-transparent hover:bg-app-surface/50 text-app-subtle hover:text-app-primary hover:border-app-primary transition-all"
+                        className="w-full h-[50px] border-dashed border-2 bg-transparent hover:bg-app-surface/50 text-app-subtle hover:text-app-primary hover:border-app-primary transition-all"
                     >
                         <PlusIcon className="w-5 h-5 mr-2" />
-                        Add New Column
+                        {trans('btn_new_column')}
                     </Button>
                 )}
             </div>
