@@ -22,7 +22,7 @@ const SearchBar = ({
 }: SearchBarProps) => {
     return (
         <div className={clsx('flex items-center gap-2', className)}>
-            <div className="relative group flex-1">
+            <div className="relative group w-80 md:w-96 transition-all duration-300">
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-subtle group-focus-within:text-app-primary transition-colors z-10 pointer-events-none" />
                 <Input
                     type="text"

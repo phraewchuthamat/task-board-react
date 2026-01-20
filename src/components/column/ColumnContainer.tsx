@@ -13,12 +13,10 @@ const ColumnContainer = forwardRef<HTMLDivElement, ColumnContainerProps>(
                 ref={ref}
                 className={clsx(
                     'flex flex-col w-80 shrink-0',
-
                     'bg-gray-100/50 dark:bg-gray-800/50',
                     'border border-gray-200 dark:border-gray-700',
                     'rounded-xl backdrop-blur-sm',
                     'transition-colors duration-300',
-
                     className
                 )}
             >

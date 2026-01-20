@@ -19,7 +19,7 @@ function ColumnHeader({
     onDeleteClick,
 }: ColumnHeaderProps) {
     return (
-        <div className="flex items-center justify-between mb-1 px-2">
+        <div className="flex items-center justify-between px-2">
             <div className="flex items-center gap-2 overflow-hidden">
                 <div className={clsx('w-3 h-3 rounded-full shrink-0', color)} />
                 <h2 className="font-bold text-app-text truncate text-md tracking-wide">
