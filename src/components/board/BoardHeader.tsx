@@ -24,43 +24,49 @@ function BoardHeader({
     const { trans } = useLanguage()
 
     return (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-4">
-            <div>
-                <h1 className="text-2xl font-bold text-app-text">
+        <div className="flex flex-col md:flex-row md:items-center justify-between p-4 gap-4 bg-app-bg transition-all duration-300">
+            <div className="flex-1 min-w-0">
+                <h1 className="text-2xl font-bold text-app-text truncate">
                     {trans('app_title')}
                 </h1>
-                <p className="text-xs text-app-subtle mt-1">
+                <p className="text-sm text-app-subtle mt-1 truncate">
                     {trans('app_sub')}
                 </p>
             </div>
 
-            <div className="flex items-center gap-3">
-                <SearchBar
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    filterValue={filterPriority}
-                    onFilterChange={(e) =>
-                        setFilterPriority(e.target.value as Priority | '')
-                    }
-                    placeholder={trans('placeholder_search')}
-                    className="w-full sm:w-auto"
-                />
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-stretch sm:items-center">
+                <div className="w-full sm:w-64 lg:w-80">
+                    <SearchBar
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        filterValue={filterPriority}
+                        onFilterChange={(e) =>
+                            setFilterPriority(e.target.value as Priority | '')
+                        }
+                        placeholder={trans('placeholder_search')}
+                        className="w-full"
+                    />
+                </div>
 
-                <div className="h-8 w-[1px] bg-app-border mx-1 hidden sm:block"></div>
+                <div className="flex items-center justify-end gap-3 shrink-0">
+                    <div className="h-8 w-[1px] bg-app-border hidden md:block"></div>
 
-                <RefreshButton />
+                    <RefreshButton />
 
-                <Button
-                    variant="primary"
-                    size="md"
-                    onClick={onNew}
-                    title="Create New Task"
-                >
-                    <PlusIcon className="w-5 h-5 sm:mr-1.5" />
-                    <span className="hidden sm:inline">
-                        {trans('btn_new_task')}
-                    </span>
-                </Button>
+                    <Button
+                        variant="primary"
+                        size="md"
+                        onClick={onNew}
+                        title={trans('btn_new_task')}
+                        className="whitespace-nowrap shadow-sm"
+                    >
+                        <PlusIcon className="w-5 h-5 sm:mr-1.5" />
+
+                        <span className="hidden sm:inline">
+                            {trans('btn_new_task')}
+                        </span>
+                    </Button>
+                </div>
             </div>
         </div>
     )
