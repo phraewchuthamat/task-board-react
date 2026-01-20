@@ -13,7 +13,7 @@ export default function LanguageSwitcher() {
                 active:scale-95 cursor-pointer
             "
         >
-            {language === 'en' ? '🇺🇸 EN' : '🇹🇭 TH'}
+            {language === 'en' ? 'EN' : 'TH'}
         </button>
     )
 }
