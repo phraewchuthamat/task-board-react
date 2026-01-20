@@ -12,10 +12,8 @@ const ColumnContainer = forwardRef<HTMLDivElement, ColumnContainerProps>(
             <div
                 ref={ref}
                 className={clsx(
-                    // Base Layout
                     'flex flex-col w-80 shrink-0',
 
-                    // Appearance
                     'bg-gray-100/50 dark:bg-gray-800/50',
                     'border border-gray-200 dark:border-gray-700',
                     'rounded-xl backdrop-blur-sm',

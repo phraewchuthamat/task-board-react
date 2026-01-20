@@ -83,9 +83,7 @@ export default function KanbanBoard() {
             onDragCancel={onDragCancel}
             measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
         >
-            {/* Main Layout: Flex Column เต็มความสูง */}
             <div className="flex flex-col h-full w-full">
-                {/* 1. Board Header (Filters) */}
                 <div className="flex-none px-6 py-4 border-b border-app-border/50 bg-app-bg">
                     <BoardHeader
                         onNew={modal.openNewTask}
@@ -96,11 +94,6 @@ export default function KanbanBoard() {
                     />
                 </div>
 
-                {/* 2. Board Area (Scrollable X) */}
-                {/* flex-1: ยืดเต็มพื้นที่ที่เหลือ
-                    overflow-x-auto: ให้ Scroll แนวนอนได้
-                    overflow-y-hidden: ห้าม Scroll แนวตั้ง (จะไป Scroll ใน Column แทน)
-                */}
                 <div className="flex-1 overflow-x-auto overflow-y-hidden px-6 pb-4 scrollbar-thin scroll-smooth snap-x snap-mandatory">
                     <div className="h-full inline-flex gap-6 items-start">
                         <BoardColumns

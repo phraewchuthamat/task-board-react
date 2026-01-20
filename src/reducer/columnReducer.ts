@@ -19,7 +19,7 @@ type UpdateColumnAction = {
 
 type DeleteColumnAction = {
     type: typeof COLUMN_ACTIONS.DELETE_COLUMN
-    payload: string // ID
+    payload: string
 }
 
 type InitColumnAction = {
