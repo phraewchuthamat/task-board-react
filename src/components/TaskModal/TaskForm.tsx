@@ -27,6 +27,10 @@ export default function TaskForm({
     } = form
 
     const { trans } = useLanguage()
+    const transLatedPriorityOptions = PRIORITY_OPTIONS.map((option) => ({
+        value: option.value,
+        label: trans(option.label),
+    }))
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -51,7 +55,7 @@ export default function TaskForm({
             <Select
                 label={trans('label_priority')}
                 {...register('priority')}
-                options={PRIORITY_OPTIONS}
+                options={transLatedPriorityOptions}
                 error={errors.priority}
             />
 

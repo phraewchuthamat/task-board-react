@@ -1,4 +1,5 @@
 import { Priority } from './storage'
+import { TranslationKey } from './i18n'
 
 export const formatDate = (dateString: string): string => {
     if (!dateString) return '-'
@@ -23,10 +24,10 @@ export const priorityColors: Record<Priority, string> = {
     low: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30',
 }
 
-export const PRIORITY_OPTIONS: { value: Priority; label: string }[] = [
-    { value: 'low', label: 'Low' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'high', label: 'High' },
+export const PRIORITY_OPTIONS: { value: Priority; label: TranslationKey }[] = [
+    { value: 'low', label: 'priority_low' },
+    { value: 'medium', label: 'priority_medium' },
+    { value: 'high', label: 'priority_high' },
 ]
 
 export const COLUMN_COLORS: Record<string, string> = {

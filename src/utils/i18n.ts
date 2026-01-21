@@ -39,6 +39,11 @@ export type TranslationKey =
     | 'column_select_color'
     | 'column_edit'
     | 'column_delete'
+    // Priority
+    | 'priority_low'
+    | 'priority_medium'
+    | 'priority_high'
+    | 'option_all'
 
 export const translations: Record<Language, Record<TranslationKey, string>> = {
     en: {
@@ -80,6 +85,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
         column_select_color: 'Select color:',
         column_edit: 'Edit Column',
         column_delete: 'Delete Column',
+        //Priority
+        priority_low: 'Low',
+        priority_medium: 'Medium',
+        priority_high: 'High',
+        option_all: 'All Priorities',
     },
     th: {
         app_title: 'บอร์ดของฉัน',
@@ -120,5 +130,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
         column_select_color: 'เลือกสี',
         column_edit: 'แก้ไขคอลัมน์',
         column_delete: 'ลบคอลัมน์',
+        // Priority
+        priority_low: 'ต่ำ',
+        priority_medium: 'ปานกลาง',
+        priority_high: 'สูง',
+        option_all: 'ทั้งหมด',
     },
 }

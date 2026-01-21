@@ -2,6 +2,8 @@ import { ChangeEvent } from 'react'
 import { MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import Input, { InputProps } from './Input'
+import { useLanguage } from '../../contexts/LanguageContext'
+import { PRIORITY_OPTIONS } from '../../utils/formatters'
 
 interface SearchBarProps extends Omit<InputProps, 'value' | 'onChange'> {
     value: string
@@ -20,6 +22,8 @@ const SearchBar = ({
     className,
     ...props
 }: SearchBarProps) => {
+    const { trans } = useLanguage()
+
     return (
         <div className={clsx('flex items-center gap-2', className)}>
             <div className="relative group w-80 md:w-96 transition-all duration-300">
@@ -51,10 +55,13 @@ const SearchBar = ({
                             : 'border-app-border hover:border-gray-400 dark:hover:border-gray-500'
                     )}
                 >
-                    <option value="">All Priorities</option>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
+                    <option value="">{trans('option_all')}</option>
+
+                    {PRIORITY_OPTIONS.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                            {trans(opt.label)}
+                        </option>
+                    ))}
                 </select>
 
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-app-subtle">
