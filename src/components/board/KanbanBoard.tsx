@@ -1,4 +1,3 @@
-import { useMemo, useState } from 'react'
 import {
     DndContext,
     DragOverlay,
@@ -15,9 +14,8 @@ import {
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useBoardDrag } from '../../hooks/useBoardDrag'
 import { useTaskModal } from '../../hooks/task/useTaskModal'
-import { useTasks } from '../../contexts/TaskContext'
+import { useKanban } from '../../hooks/useKanban'
 import { useColumns } from '../../contexts/ColumnContext'
-import { Priority } from '../../utils/storage'
 import LoadingScreen from '../ui/LoadingScreen'
 import BoardHeader from './BoardHeader'
 import BoardColumns from './BoardColumns'
@@ -33,10 +31,18 @@ const dropAnimationConfig: DropAnimation = {
 }
 
 export default function KanbanBoard() {
-    const [searchQuery, setSearchQuery] = useState('')
-    const [filterPriority, setFilterPriority] = useState<Priority | ''>('')
+    const {
+        searchQuery,
+        setSearchQuery,
+        filterPriority,
+        setFilterPriority,
+        filteredTasks,
+        isLoading,
+        taskItems,
+        moveTask,
+        reorderTask,
+    } = useKanban()
 
-    const { taskItems, moveTask, reorderTask, isLoading } = useTasks()
     const { columns } = useColumns()
 
     const { activeTask, onDragStart, onDragEnd, onDragCancel } = useBoardDrag(
@@ -58,20 +64,6 @@ export default function KanbanBoard() {
 
     const modal = useTaskModal()
 
-    const filteredTasks = useMemo(() => {
-        return taskItems.filter((task) => {
-            const matchesSearch =
-                !searchQuery.trim() ||
-                task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                task.description
-                    ?.toLowerCase()
-                    .includes(searchQuery.toLowerCase())
-            const matchesPriority =
-                !filterPriority || task.priority === filterPriority
-            return matchesSearch && matchesPriority
-        })
-    }, [taskItems, searchQuery, filterPriority])
-
     if (isLoading) return <LoadingScreen text="Loading board..." />
 
     return (
@@ -84,7 +76,7 @@ export default function KanbanBoard() {
             measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
         >
             <div className="flex flex-col h-full w-full">
-                <div className="flex-none px-6 py-4 border-b border-app-border/50 bg-app-bg">
+                <div className="flex-none border-b border-app-border/50 transition-colors duration-300">
                     <BoardHeader
                         onNew={modal.openNewTask}
                         searchQuery={searchQuery}

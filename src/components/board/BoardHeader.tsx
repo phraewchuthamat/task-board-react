@@ -24,18 +24,18 @@ function BoardHeader({
     const { trans } = useLanguage()
 
     return (
-        <div className="flex flex-col md:flex-row md:items-center justify-between p-4 gap-4 bg-app-bg transition-all duration-300">
+        <div className="flex flex-col md:flex-row md:items-center justify-between p-4 gap-4 bg-app-bg transition-colors duration-300">
             <div className="flex-1 min-w-0">
-                <h1 className="text-2xl font-bold text-app-text truncate">
+                <h1 className="text-2xl font-bold text-app-text truncate transition-colors duration-300">
                     {trans('app_title')}
                 </h1>
-                <p className="text-sm text-app-subtle mt-1 truncate">
+                <p className="text-sm text-app-subtle mt-1 truncate transition-colors duration-300">
                     {trans('app_sub')}
                 </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-stretch sm:items-center">
-                <div className="w-full sm:w-64 lg:w-80">
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-stretch sm:items-center transition-colors duration-300">
+                <div className="w-full sm:w-72 lg:w-[450px]">
                     <SearchBar
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -49,7 +49,7 @@ function BoardHeader({
                 </div>
 
                 <div className="flex items-center justify-end gap-3 shrink-0">
-                    <div className="h-8 w-[1px] bg-app-border hidden md:block"></div>
+                    <div className="h-8 w-[1px] bg-app-border hidden md:block transition-colors transition-colors duration-300"></div>
 
                     <RefreshButton />
 
