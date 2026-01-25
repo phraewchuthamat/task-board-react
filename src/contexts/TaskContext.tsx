@@ -65,7 +65,7 @@ export default function TaskProvider({ children }: TaskProviderProps) {
             const newTask: Task = {
                 id: Date.now().toString(),
                 ...taskData,
-                status: 'todo',
+                status: 'draft',
                 createdAt: new Date().toISOString(),
             }
             dispatch({ type: TASK_ACTIONS.ADD_TASK, payload: newTask })
